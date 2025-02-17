@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('jabatan', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_departemen');
-            $table->string('nama');
+            $table->string('id_departemen');
             $table->string('level');
             $table->timestamps();
         });
