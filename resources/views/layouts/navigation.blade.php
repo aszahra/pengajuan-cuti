@@ -49,7 +49,7 @@
                                     {{ __('Jenis Cuti') }}
                                 </x-dropdown-link>
 
-                                <x-dropdown-link :href="route('dashboard')">
+                                <x-dropdown-link :href="route('pegawai.index')">
                                     {{ __('Pegawai') }}
                                 </x-dropdown-link>
                             </x-slot>
