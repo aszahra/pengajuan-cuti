@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DepartemenController;
 use App\Http\Controllers\JabatanController;
+use App\Http\Controllers\JenisCutiController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -11,6 +12,7 @@ Route::get('/', function () {
 
 Route::resource('departemen', DepartemenController::class)->middleware('auth');
 Route::resource('jabatan', JabatanController::class)->middleware('auth');
+Route::resource('jeniscuti', JenisCutiController::class)->middleware('auth');
 
 
 Route::get('/dashboard', function () {
