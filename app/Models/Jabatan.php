@@ -20,4 +20,9 @@ class Jabatan extends Model
     {
         return $this->belongsTo(Departemen::class, 'id_departemen', 'id');
     }
+
+    public function pegawai()
+    {
+        return $this->hasMany(Pegawai::class, 'id_jabatan');
+    }
 }
