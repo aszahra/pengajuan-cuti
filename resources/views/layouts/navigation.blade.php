@@ -45,8 +45,8 @@
                                     {{ __('Jabatan') }}
                                 </x-dropdown-link>
 
-                                <x-dropdown-link :href="route('jeniscuti.index')">
-                                    {{ __('Jenis Cuti') }}
+                                <x-dropdown-link :href="route('cuti.index')">
+                                    {{ __('Cuti') }}
                                 </x-dropdown-link>
 
                                 <x-dropdown-link :href="route('pegawai.index')">

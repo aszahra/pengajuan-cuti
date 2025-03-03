@@ -13,10 +13,8 @@ return new class extends Migration
     {
         Schema::create('cuti', function (Blueprint $table) {
             $table->id();
-            $table->string('id_jenis_cuti');
             $table->string('nama');
             $table->integer('jumlah_cuti');
-            $table->integer('sisa_cuti');
             $table->timestamps();
         });
     }

@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\JenisCuti;
+use App\Models\Cuti;
 use Illuminate\Http\Request;
 
-class JenisCutiController extends Controller
+class CutiController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('page.jeniscuti.index');
+        $cuti = Cuti::paginate(5);
+        return view('page.cuti.index')->with([
+            'cuti' => $cuti,
+        ]);
     }
 
     /**
@@ -28,7 +31,14 @@ class JenisCutiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = [
+            'nama' => $request->input('nama'),
+            'jumlah_cuti' => $request->input('jumlah_cuti'),
+        ];
+
+        Cuti::create($data);
+
+        return back()->with('message_delete', 'Data Cuti Sudah ditambahkan');
     }
 
     /**
@@ -52,7 +62,15 @@ class JenisCutiController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $data = [
+            'nama' => $request->input('nama'),
+            'jumlah_cuti' => $request->input('jumlah_cuti'),
+        ];
+
+        $datas = Cuti::findOrFail($id);
+        $datas->update($data);
+
+        return back()->with('message_delete', 'Data Cuti Sudah di update');
     }
 
     /**
@@ -60,6 +78,8 @@ class JenisCutiController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $data = Cuti::findOrFail($id);
+        $data->delete();
+        return back()->with('message_delete', 'Data Cuti Sudah dihapus');
     }
 }
