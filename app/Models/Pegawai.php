@@ -27,4 +27,9 @@ class Pegawai extends Model
     {
         return $this->belongsTo(Jabatan::class, 'id_jabatan', 'id');
     }
+
+    public function pengajuancuti()
+    {
+        return $this->hasMany(PengajuanCuti::class, 'nip');
+    }
 }

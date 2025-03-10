@@ -12,10 +12,16 @@ class CutiController extends Controller
      */
     public function index()
     {
-        $cuti = Cuti::paginate(5);
-        return view('page.cuti.index')->with([
-            'cuti' => $cuti,
-        ]);
+        try {
+            $cuti = Cuti::paginate(5);
+            return view('page.cuti.index')->with([
+                'cuti' => $cuti,
+            ]);
+        } catch (\Exception $e) {
+            echo "<script>console.error('PHP Error: " .
+                addslashes($e->getMessage()) . "');</script>";
+            return view('error.index');
+        }
     }
 
     /**
@@ -31,14 +37,25 @@ class CutiController extends Controller
      */
     public function store(Request $request)
     {
-        $data = [
-            'nama' => $request->input('nama'),
-            'jumlah_cuti' => $request->input('jumlah_cuti'),
-        ];
+        try {
+            $data = [
+                'nama' => $request->input('nama'),
+                'jumlah_cuti' => $request->input('jumlah_cuti'),
+            ];
 
-        Cuti::create($data);
+            Cuti::create($data);
 
-        return back()->with('message_delete', 'Data Cuti Sudah ditambahkan');
+            // return back()->with('message_delete', 'Data Cuti Sudah ditambahkan');
+
+            return redirect()
+                ->route('cuti.index')
+                ->with('message_insert', 'Data Cuti Sudah ditambahkan');
+        } catch (\Exception $e) {
+            return redirect()
+                ->route('cuti.index')
+                ->with('error_message', 'Terjadi kesalahan saat menambahkan data:
+            ' . $e->getMessage());
+        }
     }
 
     /**
