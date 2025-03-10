@@ -79,15 +79,26 @@ class CutiController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $data = [
-            'nama' => $request->input('nama'),
-            'jumlah_cuti' => $request->input('jumlah_cuti'),
-        ];
+        try {
+            $data = [
+                'nama' => $request->input('nama'),
+                'jumlah_cuti' => $request->input('jumlah_cuti'),
+            ];
 
-        $datas = Cuti::findOrFail($id);
-        $datas->update($data);
+            $datas = Cuti::findOrFail($id);
+            $datas->update($data);
 
-        return back()->with('message_delete', 'Data Cuti Sudah di update');
+            // return back()->with('message_delete', 'Data Cuti Sudah di update');
+
+            return redirect()
+                ->route('cuti.index')
+                ->with('message_update', 'Data Cuti Sudah di update');
+        } catch (\Exception $e) {
+            return redirect()
+                ->route('cuti.index')
+                ->with('error_message', 'Terjadi kesalahan saat menambahkan data:
+            ' . $e->getMessage());
+        }
     }
 
     /**
