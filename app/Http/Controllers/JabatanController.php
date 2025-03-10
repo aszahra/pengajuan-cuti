@@ -13,12 +13,18 @@ class JabatanController extends Controller
      */
     public function index()
     {
-        $jabatan = Jabatan::paginate(5);
-        $departemen = Departemen::all();
-        return view('page.jabatan.index')->with([
-            'jabatan' => $jabatan,
-            'departemen' => $departemen
-        ]);
+        try {
+            $jabatan = Jabatan::paginate(5);
+            $departemen = Departemen::all();
+            return view('page.jabatan.index')->with([
+                'jabatan' => $jabatan,
+                'departemen' => $departemen
+            ]);
+        } catch (\Exception $e) {
+            echo "<script>console.error('PHP Error: " .
+                addslashes($e->getMessage()) . "');</script>";
+            return view('error.index');
+        }
     }
 
     /**

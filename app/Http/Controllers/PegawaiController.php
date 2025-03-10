@@ -13,12 +13,18 @@ class PegawaiController extends Controller
      */
     public function index()
     {
-        $pegawai = Pegawai::paginate(5);
-        $jabatan = Jabatan::all();
-        return view('page.pegawai.index')->with([
-            'pegawai' => $pegawai,
-            'jabatan' => $jabatan
-        ]);
+        try {
+            $pegawai = Pegawai::paginate(5);
+            $jabatan = Jabatan::all();
+            return view('page.pegawai.index')->with([
+                'pegawai' => $pegawai,
+                'jabatan' => $jabatan
+            ]);
+        } catch (\Exception $e) {
+            echo "<script>console.error('PHP Error: " .
+                addslashes($e->getMessage()) . "');</script>";
+            return view('error.index');
+        }
     }
 
     /**

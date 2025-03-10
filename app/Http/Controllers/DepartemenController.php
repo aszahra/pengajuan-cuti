@@ -12,10 +12,16 @@ class DepartemenController extends Controller
      */
     public function index()
     {
-        $departemen = Departemen::paginate(5);
-        return view('page.departemen.index')->with([
-            'departemen' => $departemen,
-        ]);
+        try{
+            $departemen = Departemen::paginate(5);
+            return view('page.departemen.index')->with([
+                'departemen' => $departemen,
+            ]);
+        } catch (\Exception $e) {
+            echo "<script>console.error('PHP Error: " .
+                addslashes($e->getMessage()) . "');</script>";
+            return view('error.index');
+        }
     }
 
     /**
