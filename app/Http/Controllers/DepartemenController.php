@@ -96,7 +96,7 @@ class DepartemenController extends Controller
         } catch (\Exception $e) {
             return redirect()
                 ->route('departemen.index')
-                ->with('error_message', 'Terjadi kesalahan saat menambahkan data:
+                ->with('error_message', 'Terjadi kesalahan saat meng-update data:
             ' . $e->getMessage());
         }
     }
@@ -106,8 +106,13 @@ class DepartemenController extends Controller
      */
     public function destroy(string $id)
     {
-        $data = Departemen::findOrFail($id);
-        $data->delete();
-        return back()->with('message_delete', 'Data Departemen Sudah dihapus');
+        try{
+            $data = Departemen::findOrFail($id);
+            $data->delete();
+            return back()->with('message_delete', 'Data Departemen Sudah dihapus');
+        } catch (\Exception $e) {
+            return back()->with('error_message', 'Terjadi kesalahan saat menghapus data:
+            ' . $e->getMessage());
+        }
     }
 }

@@ -99,7 +99,7 @@ class JabatanController extends Controller
         } catch (\Exception $e) {
             return redirect()
                 ->route('jabatan.index')
-                ->with('error_message', 'Terjadi kesalahan saat menambahkan data:
+                ->with('error_message', 'Terjadi kesalahan saat meng-update data:
             ' . $e->getMessage());
         }
     }
@@ -109,8 +109,13 @@ class JabatanController extends Controller
      */
     public function destroy(string $id)
     {
-        $data = Jabatan::findOrFail($id);
-        $data->delete();
-        return back()->with('message_delete', 'Data Jabatan Sudah dihapus');
+        try{
+            $data = Jabatan::findOrFail($id);
+            $data->delete();
+            return back()->with('message_delete', 'Data Jabatan Sudah dihapus');
+        } catch (\Exception $e) {
+            return back()->with('error_message', 'Terjadi kesalahan saat menghapus data:
+            ' . $e->getMessage());
+        }
     }
 }

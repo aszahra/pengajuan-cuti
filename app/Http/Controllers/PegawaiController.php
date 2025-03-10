@@ -111,7 +111,7 @@ class PegawaiController extends Controller
         } catch (\Exception $e) {
             return redirect()
                 ->route('pegawai.index')
-                ->with('error_message', 'Terjadi kesalahan saat menambahkan data:
+                ->with('error_message', 'Terjadi kesalahan saat meng-update data:
             ' . $e->getMessage());
         }
     }
@@ -121,6 +121,13 @@ class PegawaiController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try{
+            $data = Pegawai::findOrFail($id);
+            $data->delete();
+            return back()->with('message_delete', 'Data Pegawai Sudah dihapus');
+        } catch (\Exception $e) {
+            return back()->with('error_message', 'Terjadi kesalahan saat menghapus data:
+            ' . $e->getMessage());
+        }
     }
 }

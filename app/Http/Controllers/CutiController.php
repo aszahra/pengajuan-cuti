@@ -96,7 +96,7 @@ class CutiController extends Controller
         } catch (\Exception $e) {
             return redirect()
                 ->route('cuti.index')
-                ->with('error_message', 'Terjadi kesalahan saat menambahkan data:
+                ->with('error_message', 'Terjadi kesalahan saat meng-update data:
             ' . $e->getMessage());
         }
     }
@@ -106,8 +106,13 @@ class CutiController extends Controller
      */
     public function destroy(string $id)
     {
-        $data = Cuti::findOrFail($id);
-        $data->delete();
-        return back()->with('message_delete', 'Data Cuti Sudah dihapus');
+        try{
+            $data = Cuti::findOrFail($id);
+            $data->delete();
+            return back()->with('message_delete', 'Data Cuti Sudah dihapus');
+        } catch (\Exception $e) {
+            return back()->with('error_message', 'Terjadi kesalahan saat menghapus data:
+            ' . $e->getMessage());
+        }
     }
 }
