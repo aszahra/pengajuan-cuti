@@ -37,14 +37,25 @@ class DepartemenController extends Controller
      */
     public function store(Request $request)
     {
-        $data = [
-            'nama' => $request->input('nama'),
-            'deskripsi' => $request->input('deskripsi'),
-        ];
+        try {
+            $data = [
+                'nama' => $request->input('nama'),
+                'deskripsi' => $request->input('deskripsi'),
+            ];
+    
+            Departemen::create($data);
 
-        Departemen::create($data);
+            // return back()->with('message_delete', 'Data Departemen Sudah ditambahkan');
 
-        return back()->with('message_delete', 'Data Departemen Sudah dihapus');
+            return redirect()
+                ->route('departemen.index')
+                ->with('message_insert', 'Data Departemen Sudah ditambahkan');
+        } catch (\Exception $e) {
+            return redirect()
+                ->route('departemen.index')
+                ->with('error_message', 'Terjadi kesalahan saat menambahkan data:
+            ' . $e->getMessage());
+        }
     }
 
     /**

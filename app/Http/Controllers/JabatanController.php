@@ -40,14 +40,25 @@ class JabatanController extends Controller
      */
     public function store(Request $request)
     {
-        $data = [
-            'id_departemen' => $request->input('id_departemen'),
-            'level' => $request->input('level'),
-        ];
+        try {
+            $data = [
+                'id_departemen' => $request->input('id_departemen'),
+                'level' => $request->input('level'),
+            ];
+    
+            Jabatan::create($data);
 
-        Jabatan::create($data);
+            // return back()->with('message_delete', 'Data Jabatan Sudah ditambahkan');
 
-        return back()->with('message_delete', 'Data Jabatan Sudah dihapus');
+            return redirect()
+                ->route('jabatan.index')
+                ->with('message_insert', 'Data Jabatan Sudah ditambahkan');
+        } catch (\Exception $e) {
+            return redirect()
+                ->route('jabatan.index')
+                ->with('error_message', 'Terjadi kesalahan saat menambahkan data:
+            ' . $e->getMessage());
+        }
     }
 
     /**
