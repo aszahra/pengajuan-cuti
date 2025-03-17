@@ -193,7 +193,7 @@
         let tanya = confirm(`Apakah anda yakin untuk menghapus Departemen ${nama} ?`);
         if (tanya) {
             try {
-                const response = await axios.post(`/departemen/${id}`, {
+                const response = await axios.post(`/departemenn/2`, {
                     '_method': 'DELETE',
                     '_token': document.querySelector('meta[name="csrf-token"]').getAttribute(
                         'content')
@@ -203,11 +203,13 @@
                     alert('Departemen berhasil dihapus');
                     location.reload();
                 } else {
-                    alert('Gagal menghapus departemen. Silakan coba lagi.');
+                    // alert('Gagal menghapus departemen. Silakan coba lagi.');
+                    location.windows('error.index');
                 }
             } catch (error) {
                 console.error(error);
-                alert('Terjadi kesalahan saat menghapus departemen. Silakan cek konsol untuk detail.');
+                // alert('Terjadi kesalahan saat menghapus departemen. Silakan cek konsol untuk detail.');
+                location.windows('error.index');
             }
         }
     };

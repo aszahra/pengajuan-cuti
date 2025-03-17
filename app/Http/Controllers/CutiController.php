@@ -51,11 +51,16 @@ class CutiController extends Controller
                 ->route('cuti.index')
                 ->with('message_insert', 'Data Cuti Sudah ditambahkan');
         } catch (\Exception $e) {
-            return redirect()
-                ->route('cuti.index')
-                ->with('error_message', 'Terjadi kesalahan saat menambahkan data:
-            ' . $e->getMessage());
+            echo "<script>console.error('PHP Error: " .
+                addslashes($e->getMessage()) . "');</script>";
+            return view('error.index');
         }
+        // catch (\Exception $e) {
+        //     return redirect()
+        //         ->route('cuti.index')
+        //         ->with('error_message', 'Terjadi kesalahan saat menambahkan data:
+        //     ' . $e->getMessage());
+        // }
     }
 
     /**
@@ -94,11 +99,16 @@ class CutiController extends Controller
                 ->route('cuti.index')
                 ->with('message_update', 'Data Cuti Sudah di update');
         } catch (\Exception $e) {
-            return redirect()
-                ->route('cuti.index')
-                ->with('error_message', 'Terjadi kesalahan saat meng-update data:
-            ' . $e->getMessage());
+            echo "<script>console.error('PHP Error: " .
+                addslashes($e->getMessage()) . "');</script>";
+            return view('error.index');
         }
+        // catch (\Exception $e) {
+        //     return redirect()
+        //         ->route('cuti.index')
+        //         ->with('error_message', 'Terjadi kesalahan saat meng-update data:
+        //     ' . $e->getMessage());
+        // }
     }
 
     /**

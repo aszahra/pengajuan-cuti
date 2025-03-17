@@ -54,11 +54,16 @@ class JabatanController extends Controller
                 ->route('jabatan.index')
                 ->with('message_insert', 'Data Jabatan Sudah ditambahkan');
         } catch (\Exception $e) {
-            return redirect()
-                ->route('jabatan.index')
-                ->with('error_message', 'Terjadi kesalahan saat menambahkan data:
-            ' . $e->getMessage());
+            echo "<script>console.error('PHP Error: " .
+                addslashes($e->getMessage()) . "');</script>";
+            return view('error.index');
         }
+        // catch (\Exception $e) {
+        //     return redirect()
+        //         ->route('jabatan.index')
+        //         ->with('error_message', 'Terjadi kesalahan saat menambahkan data:
+        //     ' . $e->getMessage());
+        // }
     }
 
     /**
@@ -96,12 +101,17 @@ class JabatanController extends Controller
             return redirect()
                 ->route('jabatan.index')
                 ->with('message_update', 'Data Jabatan Sudah di update');
-        } catch (\Exception $e) {
-            return redirect()
-                ->route('jabatan.index')
-                ->with('error_message', 'Terjadi kesalahan saat meng-update data:
-            ' . $e->getMessage());
-        }
+        }   catch (\Exception $e) {
+            echo "<script>console.error('PHP Error: " .
+                addslashes($e->getMessage()) . "');</script>";
+            return view('error.index');
+        } 
+        // catch (\Exception $e) {
+        //     return redirect()
+        //         ->route('jabatan.index')
+        //         ->with('error_message', 'Terjadi kesalahan saat meng-update data:
+        //     ' . $e->getMessage());
+        // }
     }
 
     /**

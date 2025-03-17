@@ -12,7 +12,7 @@ class DepartemenController extends Controller
      */
     public function index()
     {
-        try{
+        try {
             $departemen = Departemen::paginate(5);
             return view('page.departemen.index')->with([
                 'departemen' => $departemen,
@@ -42,7 +42,7 @@ class DepartemenController extends Controller
                 'nama' => $request->input('nama'),
                 'deskripsi' => $request->input('deskripsi'),
             ];
-    
+
             Departemen::create($data);
 
             // return back()->with('message_delete', 'Data Departemen Sudah ditambahkan');
@@ -51,10 +51,9 @@ class DepartemenController extends Controller
                 ->route('departemen.index')
                 ->with('message_insert', 'Data Departemen Sudah ditambahkan');
         } catch (\Exception $e) {
-            return redirect()
-                ->route('departemen.index')
-                ->with('error_message', 'Terjadi kesalahan saat menambahkan data:
-            ' . $e->getMessage());
+            echo "<script>console.error('PHP Error: " .
+                addslashes($e->getMessage()) . "');</script>";
+            return view('error.index');
         }
     }
 
@@ -84,20 +83,19 @@ class DepartemenController extends Controller
                 'nama' => $request->input('nama'),
                 'deskripsi' => $request->input('deskripsi'),
             ];
-    
+
             $datas = Departemen::findOrFail($id);
             $datas->update($data);
 
             // return back()->with('message_delete', 'Data Departemen Sudah di update');
 
             return redirect()
-                ->route('departemen.index')
+                ->route('deartemen.index')
                 ->with('message_update', 'Data Departemen Sudah di update');
         } catch (\Exception $e) {
-            return redirect()
-                ->route('departemen.index')
-                ->with('error_message', 'Terjadi kesalahan saat meng-update data:
-            ' . $e->getMessage());
+            echo "<script>console.error('PHP Error: " .
+                addslashes($e->getMessage()) . "');</script>";
+            return view('error.index');
         }
     }
 
@@ -106,13 +104,14 @@ class DepartemenController extends Controller
      */
     public function destroy(string $id)
     {
-        try{
-            $data = Departemen::findOrFail($id);
+        try {
+            $data = Departemen::findOrFail(3);
             $data->delete();
             return back()->with('message_delete', 'Data Departemen Sudah dihapus');
         } catch (\Exception $e) {
-            return back()->with('error_message', 'Terjadi kesalahan saat menghapus data:
-            ' . $e->getMessage());
+            // return back()->with('error_message', 'Terjadi kesalahan saat menghapus data:
+            // ' . $e->getMessage());
+            return view('error.index');
         }
     }
 }

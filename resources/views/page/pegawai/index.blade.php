@@ -190,7 +190,7 @@
                                                     </svg>
                                                 </button>
                                                 <button
-                                                    onclick="return pegawaiDelete('{{ $k->id }}','{{ $k->nama }}')"
+                                                    onclick="return pegawaiDelete('{{ $k->nip }}','{{ $k->nama }}')"
                                                     class="bg-red-500 hover:bg-bg-red-300 px-3 py-1 rounded-md text-xs text-white">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16"
                                                         height="16" fill="currentColor" class="bi bi-trash3-fill"
@@ -326,7 +326,7 @@
         const no_hp = button.dataset.no_hp;
         const alamat = button.dataset.alamat;
         const status_pegawai = button.dataset.status_pegawai;
-        let url = "{{ route('cuti.update', ':nip') }}".replace(':nip', nip);
+        let url = "{{ route('pegawai.update', ':nip') }}".replace(':nip', nip);
 
         let status = document.getElementById(modalTarget);
         document.getElementById('title_source').innerText = `UPDATE PEGAWAI ${nama}`;
@@ -361,11 +361,11 @@
         status.classList.toggle('hidden');
     }
 
-    const pegawaiDelete = async (id, nama) => {
+    const pegawaiDelete = async (nip, nama) => {
         let tanya = confirm(`Apakah anda yakin untuk menghapus Pegawai ${nama} ?`);
         if (tanya) {
             try {
-                const response = await axios.post(`/pegawai/${id}`, {
+                const response = await axios.post(`/pegawai/${nip}`, {
                     '_method': 'DELETE',
                     '_token': document.querySelector('meta[name="csrf-token"]').getAttribute(
                         'content')
