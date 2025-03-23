@@ -90,7 +90,7 @@ class DepartemenController extends Controller
             // return back()->with('message_delete', 'Data Departemen Sudah di update');
 
             return redirect()
-                ->route('deartemen.index')
+                ->route('departemen.index')
                 ->with('message_update', 'Data Departemen Sudah di update');
         } catch (\Exception $e) {
             echo "<script>console.error('PHP Error: " .
@@ -105,7 +105,7 @@ class DepartemenController extends Controller
     public function destroy(string $id)
     {
         try {
-            $data = Departemen::findOrFail(3);
+            $data = Departemen::findOrFail($id);
             $data->delete();
             return back()->with('message_delete', 'Data Departemen Sudah dihapus');
         } catch (\Exception $e) {

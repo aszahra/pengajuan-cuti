@@ -193,7 +193,7 @@
         let tanya = confirm(`Apakah anda yakin untuk menghapus Departemen ${nama} ?`);
         if (tanya) {
             try {
-                const response = await axios.post(`/departemenn/2`, {
+                const response = await axios.post(`/departemen/${id}`, {
                     '_method': 'DELETE',
                     '_token': document.querySelector('meta[name="csrf-token"]').getAttribute(
                         'content')

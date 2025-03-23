@@ -151,7 +151,7 @@
                             </select>
                         </div>
                         <div class="">
-                            <label for="level"
+                            <label for=""
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Level
                             </label>
                             <select class="js-example-placeholder-single js-states form-control w-full" name="level"
