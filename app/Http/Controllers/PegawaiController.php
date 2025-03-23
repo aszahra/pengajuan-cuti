@@ -101,8 +101,9 @@ class PegawaiController extends Controller
             ];
     
             $datas = Pegawai::findOrFail($id);
-            $nip = $datas->nip;
-            $datas->update($data)->where('nip',$nip);
+            $datas->update($data);
+            // $nip = $datas->nip;
+            // $datas->update($data)->where('nip',$nip);
 
             // return back()->with('message_delete', 'Data Pegawai Sudah di update');
 
@@ -120,10 +121,10 @@ class PegawaiController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $nip)
+    public function destroy(string $id)
     {
         try{
-            $data = Pegawai::findOrFail($nip);
+            $data = Pegawai::findOrFail($id);
             $data->delete();
             return back()->with('message_delete', 'Data Pegawai Sudah dihapus');
         } catch (\Exception $e) {

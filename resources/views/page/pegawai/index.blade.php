@@ -4,7 +4,6 @@
             {{ __('PEGAWAI') }}
         </h2>
     </x-slot>
-
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
@@ -132,7 +131,6 @@
                                             STATUS PEGAWAI
                                         </th>
                                         <th scope="col" class="px-6 py-3">
-
                                         </th>
                                     </tr>
                                 </thead>
@@ -153,9 +151,6 @@
                                             <td class="px-6 py-4">
                                                 {{ $k->nama }}
                                             </td>
-                                            {{-- <td class="px-6 py-4">
-                                                {{ $k->jabatan->id_departemen }}
-                                            </td> --}}
                                             <td class="px-6 py-4">
                                                 {{ $k->jabatan->departemen->nama }} - {{ $k->jabatan->level }}
                                             </td>
@@ -175,8 +170,8 @@
                                                 {{ $k->status_pegawai }}
                                             </td>
                                             <td class="px-6 py-4">
-                                                <button type="button" data-nip="{{ $k->nip }}"
-                                                    data-modal-target="sourceModal" data-nama="{{ $k->nama }}"
+                                                <button type="button" data-id="{{ $k->id }}"
+                                                    data-modal-target="sourceModal" data-nip="{{ $k->nip }}" data-nama="{{ $k->nama }}"
                                                     data-id_jabatan="{{ $k->id_jabatan }}"
                                                     data-jenis_kelamin="{{ $k->jenis_kelamin }}"
                                                     data-tanggal_lahir="{{ $k->tanggal_lahir }}"
@@ -193,7 +188,7 @@
                                                     </svg>
                                                 </button>
                                                 <button
-                                                    onclick="return pegawaiDelete('{{ $k->nip }}','{{ $k->nama }}')"
+                                                    onclick="return pegawaiDelete('{{ $k->id }}','{{ $k->nama }}')"
                                                     class="bg-red-500 hover:bg-bg-red-300 px-3 py-1 rounded-md text-xs text-white">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16"
                                                         height="16" fill="currentColor" class="bi bi-trash3-fill"
@@ -234,10 +229,11 @@
                     @csrf
                     <div class="flex flex-col  p-4 space-y-6">
                         <div class="">
-                            <label for="text" class="block mb-2 text-sm font-medium text-gray-900">NIP</label>
-                            <input type="number" id="nip" name="nip"
+                            <label for="text" class="block mb-2 text-sm font-medium text-gray-900">NIP
+                                </label>
+                            <input type="text" id="nip" name="nip"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Masukan nip disini...">
+                                placeholder="Masukan jumlah cuti disini...">
                         </div>
                         <div class="">
                             <label for="text" class="block mb-2 text-sm font-medium text-gray-900">Nama
@@ -317,10 +313,12 @@
         </div>
     </div>
 </x-app-layout>
+
 <script>
     const editSourceModal = (button) => {
         const formModal = document.getElementById('formSourceModal');
         const modalTarget = button.dataset.modalTarget;
+        const id = button.dataset.id;
         const nip = button.dataset.nip;
         const nama = button.dataset.nama;
         const id_jabatan = button.dataset.id_jabatan;
@@ -329,26 +327,44 @@
         const no_hp = button.dataset.no_hp;
         const alamat = button.dataset.alamat;
         const status_pegawai = button.dataset.status_pegawai;
-        let url = "{{ route('pegawai.update', ':nip') }}".replace(':nip', nip);
+
+        let url = "{{ route('pegawai.update', ':id') }}".replace(':id', id);
 
         let status = document.getElementById(modalTarget);
         document.getElementById('title_source').innerText = `UPDATE PEGAWAI ${nama}`;
 
+        // Mengisi nilai input teks
+        document.getElementById('nip').value = nip;
         document.getElementById('nama').value = nama;
-        document.getElementById('id_jabatan').value = id_jabatan;
-        document.getElementById('jenis_kelamin').value = jenis_kelamin;
         document.getElementById('tanggal_lahir').value = tanggal_lahir;
-        document.getElementById('no_hp').value = no_hp;
         document.getElementById('alamat').value = alamat;
-        document.getElementById('status_pegawai').value = status_pegawai;
+        document.getElementById('no_hp').value = no_hp;
+
+        // Mengisi nilai select dan memperbarui select2
+        const jabatanSelect = document.getElementById('id_jabatan');
+        const jenisKelaminSelect = document.getElementById('jenis_kelamin');
+        const statusPegawaiSelect = document.getElementById('status_pegawai');
+
+        jabatanSelect.value = id_jabatan;
+        $(jabatanSelect).trigger('change'); // Perbarui select2
+
+        jenisKelaminSelect.value = jenis_kelamin;
+        $(jenisKelaminSelect).trigger('change'); // Perbarui select2
+
+        console.log("Status Pegawai:", status_pegawai); // Debugging
+        statusPegawaiSelect.value = status_pegawai;
+        $(statusPegawaiSelect).trigger('change'); // Perbarui select2
 
         document.getElementById('formSourceButton').innerText = 'Simpan';
         document.getElementById('formSourceModal').setAttribute('action', url);
+
+        // Menambahkan CSRF token
         let csrfToken = document.createElement('input');
         csrfToken.setAttribute('type', 'hidden');
         csrfToken.setAttribute('value', '{{ csrf_token() }}');
         formModal.appendChild(csrfToken);
 
+        // Menambahkan method PATCH
         let methodInput = document.createElement('input');
         methodInput.setAttribute('type', 'hidden');
         methodInput.setAttribute('name', '_method');
@@ -357,23 +373,21 @@
 
         status.classList.toggle('hidden');
     }
-
     const sourceModalClose = (button) => {
         const modalTarget = button.dataset.modalTarget;
         let status = document.getElementById(modalTarget);
         status.classList.toggle('hidden');
     }
 
-    const pegawaiDelete = async (nip, nama) => {
+    const pegawaiDelete = async (id, nama) => {
         let tanya = confirm(`Apakah anda yakin untuk menghapus Pegawai ${nama} ?`);
         if (tanya) {
             try {
-                const response = await axios.post(`/pegawai/${nip}`, {
+                const response = await axios.post(`/pegawai/${id}`, {
                     '_method': 'DELETE',
                     '_token': document.querySelector('meta[name="csrf-token"]').getAttribute(
                         'content')
                 });
-
                 if (response.status === 200) {
                     alert('Pegawai berhasil dihapus');
                     location.reload();
@@ -387,3 +401,94 @@
         }
     };
 </script>
+
+{{-- <script>
+    const editSourceModal = (button) => {
+        const formModal = document.getElementById('formSourceModal');
+        const modalTarget = button.dataset.modalTarget;
+        const id = button.dataset.id;
+        const nama = button.dataset.nama;
+        const id_jabatan = button.dataset.id_jabatan; // Jabatan dari dataset
+        const jenis_kelamin = button.dataset.jenis_kelamin; // Jenis Kelamin dari dataset
+        const tanggal_lahir = button.dataset.tanggal_lahir;
+        const no_hp = button.dataset.no_hp;
+        const alamat = button.dataset.alamat;
+        const status_pegawai = button.dataset.status_pegawai; // Status Pegawai dari dataset
+        let url = "{{ route('pegawai.update', ':id') }}".replace(':id', id);
+        let status = document.getElementById(modalTarget);
+        document.getElementById('title_source').innerText = `UPDATE PEGAWAI ${nama}`;
+        // Set nilai input biasa
+        document.getElementById('id').value = id;
+        document.getElementById('nama').value = nama;
+        document.getElementById('tanggal_lahir').value = tanggal_lahir;
+        document.getElementById('no_hp').value = no_hp;
+        document.getElementById('alamat').value = alamat;
+        // Fungsi untuk memilih opsi pada <select>
+        const setSelectValue = (selectId, value) => {
+            const selectElement = document.getElementById(selectId);
+            if (selectElement) {
+                // Reset semua opsi
+                Array.from(selectElement.options).forEach(option => {
+                    option.selected = false;
+                });
+                // Cari dan pilih opsi yang sesuai
+                const selectedOption = Array.from(selectElement.options).find(option => option.value === value);
+                if (selectedOption) {
+                    selectedOption.selected = true;
+                }
+                // Debugging: Periksa apakah nilai ditemukan
+                console.log(`Selected Option for ${selectId}:`, selectedOption);
+                // Perbarui Select2 jika digunakan
+                $(selectElement).val(value).trigger('change');
+            }
+        };
+        // Set nilai untuk elemen <select>
+        setSelectValue('id_jabatan', id_jabatan); // Jabatan
+        setSelectValue('jenis_kelamin', jenis_kelamin); // Jenis Kelamin
+        setSelectValue('status_pegawai', status_pegawai); // Status Pegawai
+        // Update atribut form
+        document.getElementById('formSourceButton').innerText = 'Simpan';
+        document.getElementById('formSourceModal').setAttribute('action', url);
+        // Tambahkan CSRF token
+        let csrfToken = document.createElement('input');
+        csrfToken.setAttribute('type', 'hidden');
+        csrfToken.setAttribute('value', '{{ csrf_token() }}');
+        formModal.appendChild(csrfToken);
+        // Tambahkan method PATCH
+        let methodInput = document.createElement('input');
+        methodInput.setAttribute('type', 'hidden');
+        methodInput.setAttribute('name', '_method');
+        methodInput.setAttribute('value', 'PATCH');
+        formModal.appendChild(methodInput);
+        // Toggle modal visibility
+        status.classList.toggle('hidden');
+    };
+
+    const sourceModalClose = (button) => {
+        const modalTarget = button.dataset.modalTarget;
+        let status = document.getElementById(modalTarget);
+        status.classList.toggle('hidden');
+    }
+
+    const pegawaiDelete = async (id, nama) => {
+        let tanya = confirm(`Apakah anda yakin untuk menghapus Pegawai ${nama} ?`);
+        if (tanya) {
+            try {
+                const response = await axios.post(`/pegawai/${id}`, {
+                    '_method': 'DELETE',
+                    '_token': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                        'content')
+                });
+                if (response.status === 200) {
+                    alert('Pegawai berhasil dihapus');
+                    location.reload();
+                } else {
+                    alert('Gagal menghapus pegawai. Silakan coba lagi.');
+                }
+            } catch (error) {
+                console.error(error);
+                alert('Terjadi kesalahan saat menghapus pegawai. Silakan cek konsol untuk detail.');
+            }
+        }
+    };
+</script> --}}
