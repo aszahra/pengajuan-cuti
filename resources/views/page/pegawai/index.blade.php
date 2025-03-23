@@ -41,8 +41,8 @@
                                     name="id_jabatan" placeholder="Pilih Jabatan">
                                     <option value="" disabled selected>Pilih...</option>
                                     @foreach ($jabatan as $k)
-                                        <option value="{{ $k->id }}">{{ $k->level }} -
-                                            {{ $k->departemen->nama }}</option>
+                                        <option value="{{ $k->id }}">
+                                            {{ $k->departemen->nama }} - {{ $k->level }} </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -153,8 +153,11 @@
                                             <td class="px-6 py-4">
                                                 {{ $k->nama }}
                                             </td>
+                                            {{-- <td class="px-6 py-4">
+                                                {{ $k->jabatan->id_departemen }}
+                                            </td> --}}
                                             <td class="px-6 py-4">
-                                                {{ $k->jabatan->nama }}
+                                                {{ $k->jabatan->departemen->nama }} - {{ $k->jabatan->level }}
                                             </td>
                                             <td class="px-6 py-4">
                                                 {{ $k->jenis_kelamin }}
