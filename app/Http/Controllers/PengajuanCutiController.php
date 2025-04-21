@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cuti;
+use App\Models\Pegawai;
+use App\Models\PengajuanCuti;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PengajuanCutiController extends Controller
@@ -11,7 +15,14 @@ class PengajuanCutiController extends Controller
      */
     public function index()
     {
-        return view('page.pengajuancuti.index');
+        $data = PengajuanCuti::paginate(5);
+        $pegawai = Pegawai::all();
+        $cuti = Cuti::all();
+        return view('page.pengajuancuti.index')->with([
+            'data' => $data,
+            'pegawai' => $pegawai,
+            'cuti' => $cuti,
+        ]);
     }
 
     /**
@@ -19,7 +30,12 @@ class PengajuanCutiController extends Controller
      */
     public function create()
     {
-        //
+        $pegawai = Pegawai::all();
+        $cuti = Cuti::all();
+        return view('page.pengajuancuti.create')->with([
+            'pegawai' => $pegawai,
+            'cuti' => $cuti,
+        ]);
     }
 
     /**
@@ -27,15 +43,32 @@ class PengajuanCutiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = [
+            'id_pegawai' => $request->input('id_pegawai'),
+            'id_cuti' => $request->input('id_cuti'),
+            'tanggal_pengajuan' => $request->input('tanggal_pengajuan'),
+            'tanggal_mulai' => $request->input('tanggal_mulai'),
+            'tanggal_selesai' => $request->input('tanggal_selesai'),
+            'status' => $request->input('status'),
+            'keterangan' => $request->input('keterangan'),
+            'tanggal_pengajuan' => Carbon::now(),
+        ];
+
+        PengajuanCuti::create($data);
+
+        return redirect()
+            ->route('pengajuancuti.index')
+            ->with('message', 'Data sudah ditambahkan');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $data = PengajuanCuti::findOrFail($id);
+        // return view('page.pengajuancuti.show', compact('data'));
+        return response()->json($data);
     }
 
     /**
@@ -60,5 +93,16 @@ class PengajuanCutiController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $data = PengajuanCuti::findOrFail($id);
+        $data->status = $request->status;
+        $data->save();
+
+        return redirect()
+            ->route('pengajuancuti.index')
+            ->with('message', 'Data sudah ditambahkan');
     }
 }

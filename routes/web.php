@@ -4,6 +4,7 @@ use App\Http\Controllers\CutiController;
 use App\Http\Controllers\DepartemenController;
 use App\Http\Controllers\ErrorController;
 use App\Http\Controllers\JabatanController;
+use App\Http\Controllers\Laporan;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\PengajuanCutiController;
 use App\Http\Controllers\ProfileController;
@@ -18,7 +19,9 @@ Route::resource('jabatan', JabatanController::class)->middleware('auth');
 Route::resource('cuti', CutiController::class)->middleware('auth');
 Route::resource('pegawai', PegawaiController::class)->middleware('auth');
 Route::resource('pengajuancuti', PengajuanCutiController::class)->middleware('auth');
-
+Route::get('/pengajuancuti/{id}', [PengajuanCutiController::class, 'show'])->name('pengajuancuti.show');
+Route::put('/status/{id}', [PengajuanCutiController::class, 'updateStatus'])->name('update.status');
+Route::resource('laporan', Laporan::class)->middleware('auth');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

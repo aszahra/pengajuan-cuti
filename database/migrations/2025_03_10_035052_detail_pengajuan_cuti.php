@@ -13,10 +13,9 @@ return new class extends Migration
     {
         Schema::create('detail_pengajuan_cuti', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_cuti');
             $table->integer('id_pengajuan_cuti');
             $table->integer('jumlah_cuti');
-            $table->integer('sisa_cuti');
+            $table->integer('sisa_cuti')->nullable();
             $table->timestamps();
         });
     }

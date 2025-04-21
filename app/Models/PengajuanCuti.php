@@ -10,7 +10,8 @@ class PengajuanCuti extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nip',
+        'id_pegawai',
+        'id_cuti',
         'tanggal_pengajuan',
         'tanggal_mulai',
         'tanggal_selesai',
@@ -22,6 +23,11 @@ class PengajuanCuti extends Model
 
     public function pegawai()
     {
-        return $this->belongsTo(Pegawai::class, 'nip', 'nip');
+        return $this->belongsTo(Pegawai::class, 'id_pegawai', 'id');
+    }
+
+    public function cuti()
+    {
+        return $this->belongsTo(Cuti::class, 'id_cuti', 'id');
     }
 }

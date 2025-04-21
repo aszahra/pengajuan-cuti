@@ -30,6 +30,6 @@ class Pegawai extends Model
 
     public function pengajuancuti()
     {
-        return $this->hasMany(PengajuanCuti::class, 'nip');
+        return $this->hasMany(PengajuanCuti::class, 'id_pegawai');
     }
 }
