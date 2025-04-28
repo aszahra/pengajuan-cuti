@@ -11,10 +11,7 @@ class PengajuanCuti extends Model
 
     protected $fillable = [
         'id_pegawai',
-        'id_cuti',
         'tanggal_pengajuan',
-        'tanggal_mulai',
-        'tanggal_selesai',
         'status',
         'keterangan',
     ];
@@ -26,8 +23,8 @@ class PengajuanCuti extends Model
         return $this->belongsTo(Pegawai::class, 'id_pegawai', 'id');
     }
 
-    public function cuti()
-    {
-        return $this->belongsTo(Cuti::class, 'id_cuti', 'id');
-    }
+    // public function cuti()
+    // {
+    //     return $this->belongsTo(Cuti::class, 'id_cuti', 'id');
+    // }
 }

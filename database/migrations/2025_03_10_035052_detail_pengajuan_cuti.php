@@ -14,8 +14,11 @@ return new class extends Migration
         Schema::create('detail_pengajuan_cuti', function (Blueprint $table) {
             $table->id();
             $table->integer('id_pengajuan_cuti');
-            $table->integer('jumlah_cuti');
-            $table->integer('sisa_cuti')->nullable();
+            $table->string('id_cuti');
+            $table->date('tanggal_mulai');
+            $table->date('tanggal_selesai');
+            $table->integer('jumlah');
+            $table->integer('sisa_cuti');
             $table->timestamps();
         });
     }

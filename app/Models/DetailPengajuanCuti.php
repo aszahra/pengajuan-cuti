@@ -11,9 +11,13 @@ class DetailPengajuanCuti extends Model
 
     protected $fillable = [
         'id_pengajuancuti',
-        'jumlah_cuti',
+        'id_cuti',
+        'tanggal_mulai',
+        'tanggal_selesai',
+        'jumlah',
         'sisa_cuti',
     ];
-    
+
     protected $table = 'detail_pengajuan_cuti';
+    
 }

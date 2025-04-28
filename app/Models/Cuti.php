@@ -12,6 +12,7 @@ class Cuti extends Model
     protected $fillable = [
         'nama',
         'jumlah_cuti',
+        'keterangan'
     ];
     
     protected $table = 'cuti';

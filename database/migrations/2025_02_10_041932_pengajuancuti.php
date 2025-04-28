@@ -14,10 +14,7 @@ return new class extends Migration
         Schema::create('pengajuancuti', function (Blueprint $table) {
             $table->id();
             $table->string('id_pegawai');
-            $table->string('id_cuti');
             $table->date('tanggal_pengajuan')->nullable();
-            $table->date('tanggal_mulai');
-            $table->date('tanggal_selesai');
             $table->string('status');
             $table->text('keterangan')->nullable();
             $table->timestamps();
