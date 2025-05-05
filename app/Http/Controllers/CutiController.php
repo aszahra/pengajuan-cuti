@@ -36,11 +36,12 @@ class CutiController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
+    {     
         try {
             $data = [
                 'nama' => $request->input('nama'),
                 'jumlah_cuti' => $request->input('jumlah_cuti'),
+                'keterangan' => $request->input('keterangan'),
             ];
 
             Cuti::create($data);
@@ -88,6 +89,7 @@ class CutiController extends Controller
             $data = [
                 'nama' => $request->input('nama'),
                 'jumlah_cuti' => $request->input('jumlah_cuti'),
+                'keterangan' => $request->input('keterangan'),
             ];
 
             $datas = Cuti::findOrFail($id);

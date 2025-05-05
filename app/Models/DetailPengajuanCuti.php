@@ -10,7 +10,7 @@ class DetailPengajuanCuti extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id_pengajuancuti',
+        'id_pengajuan_cuti',
         'id_cuti',
         'tanggal_mulai',
         'tanggal_selesai',
@@ -20,4 +20,8 @@ class DetailPengajuanCuti extends Model
 
     protected $table = 'detail_pengajuan_cuti';
     
+    public function pengajuancuti()
+    {
+        return $this->belongsTo(PengajuanCuti::class, 'id_pengajuan_cuti');
+    }
 }

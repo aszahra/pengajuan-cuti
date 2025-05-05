@@ -11,8 +11,8 @@
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg w-full p-4">
                     <div class="p-4 bg-gray-100 mb-6 rounded-xl font-bold">
                         <div class="flex items-center justify-between">
-                            <div class="w-full">
-                                FORM INPUT PENGAJUAN CUTI
+                            <div class="w-full text-center text-xl">
+                                    FORM INPUT PENGAJUAN CUTI
                             </div>
                         </div>
                     </div>
@@ -67,21 +67,21 @@
                                         required />
                                 </div>
                                 <div class="mb-5 w-full">
-                                    <label for="jumlah_cuti"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah Cuti</label>
-                                    <input type="number" id="jumlah_cuti" name="jumlah_cuti" readonly
+                                    <label for="jumlah"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah
+                                        Cuti</label>
+                                    <input type="number" id="jumlah" name="jumlah" readonly
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                                 </div>
-                                
+
                             </div>
                             <div class="flex gap-5">
                                 <div class="mb-5 w-full">
                                     <label for="status"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status
-                                        </label>
+                                    </label>
                                     <select class="js-example-placeholder-single js-states form-control w-full m-6"
-                                        id="status" name="status"
-                                        data-placeholder="Pilih Status">
+                                        id="status" name="status" data-placeholder="Pilih Status">
                                         <option value="">Pilih...</option>
                                         <option value="Disetujui" disabled>Disetujui</option>
                                         <option value="Menunggu" selected>Menunggu</option>
@@ -105,25 +105,25 @@
         </div>
     </div>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const tanggalMulai = document.getElementById('tanggal_mulai');
             const tanggalSelesai = document.getElementById('tanggal_selesai');
-            const jumlahCuti = document.getElementById('jumlah_cuti');
-    
+            const jumlahCuti = document.getElementById('jumlah');
+
             function hitungJumlahCuti() {
                 const mulai = new Date(tanggalMulai.value);
                 const selesai = new Date(tanggalSelesai.value);
                 const selisihWaktu = selesai - mulai;
-                const selisihHari = Math.floor(selisihWaktu / (1000 * 60 * 60 * 24)) + 1; 
-    
+                const selisihHari = Math.floor(selisihWaktu / (1000 * 60 * 60 * 24)) + 1;
+
                 jumlahCuti.value = selisihHari > 0 ? selisihHari : 0;
             }
-    
+
             tanggalMulai.addEventListener('change', hitungJumlahCuti);
             tanggalSelesai.addEventListener('change', hitungJumlahCuti);
-    
+
             hitungJumlahCuti();
         });
     </script>
-    
+
 </x-app-layout>

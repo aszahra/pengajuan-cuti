@@ -28,10 +28,18 @@
                             </div>
                             <div class="mb-5">
                                 <label for="base-input"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah Cuti</label>
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah
+                                    Cuti</label>
                                 <input name="jumlah_cuti" type="number" id="base-input"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder="Masukan jumlah cuti...">
+                            </div>
+                            <div class="mb-5">
+                                <label for="base-input"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Keterangan</label>
+                                <input name="keterangan" type="text" id="base-input"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="Masukan keterangan cuti...">
                             </div>
                             <button type="submit"
                                 class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">SIMPAN</button>
@@ -52,6 +60,9 @@
                                         </th>
                                         <th scope="col" class="px-6 py-3">
                                             JUMLAH CUTI
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            KETERANGAN
                                         </th>
                                         <th scope="col" class="px-6 py-3">
 
@@ -76,9 +87,13 @@
                                                 {{ $k->jumlah_cuti }}
                                             </td>
                                             <td class="px-6 py-4">
+                                                {{ $k->keterangan }}
+                                            </td>
+                                            <td class="px-6 py-4">
                                                 <button type="button" data-id="{{ $k->id }}"
                                                     data-modal-target="sourceModal" data-nama="{{ $k->nama }}"
-                                                    data-jumlah_cuti="{{ $k->jumlah_cuti }}" onclick="editSourceModal(this)"
+                                                    data-jumlah_cuti="{{ $k->jumlah_cuti }}" data-keterangan="{{ $k->keterangan }}"
+                                                    onclick="editSourceModal(this)"
                                                     class="bg-amber-500 hover:bg-amber-600 px-3 py-1 rounded-md text-xs text-white">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16"
                                                         height="16" fill="currentColor" class="bi bi-pencil-fill"
@@ -135,10 +150,17 @@
                                 placeholder="Masukan nama disini...">
                         </div>
                         <div class="">
-                            <label for="text" class="block mb-2 text-sm font-medium text-gray-900">Jumlah Cuti</label>
+                            <label for="text" class="block mb-2 text-sm font-medium text-gray-900">Jumlah
+                                Cuti</label>
                             <input type="number" id="jumlah_cuti" name="jumlah_cuti"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Masukan jumlah cuti disini...">
+                        </div>
+                        <div class="">
+                            <label for="text" class="block mb-2 text-sm font-medium text-gray-900">Keterangan</label>
+                            <input type="text" id="keterangan" name="keterangan"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="Masukan keterangan disini...">
                         </div>
                     </div>
                     <div class="flex items-center p-4 space-x-2 border-t border-gray-200 rounded-b">
@@ -159,6 +181,7 @@
         const id = button.dataset.id;
         const nama = button.dataset.nama;
         const jumlah_cuti = button.dataset.jumlah_cuti;
+        const keterangan = button.dataset.keterangan;
         let url = "{{ route('cuti.update', ':id') }}".replace(':id', id);
 
         let status = document.getElementById(modalTarget);
@@ -166,6 +189,7 @@
 
         document.getElementById('nama').value = nama;
         document.getElementById('jumlah_cuti').value = jumlah_cuti;
+        document.getElementById('keterangan').value = keterangan;
 
         document.getElementById('formSourceButton').innerText = 'Simpan';
         document.getElementById('formSourceModal').setAttribute('action', url);

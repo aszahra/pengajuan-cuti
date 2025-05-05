@@ -71,15 +71,16 @@
                                             <td class="px-6 py-4 bg-gray-100 text-center">
                                                 {{ $d->tanggal_pengajuan }}
                                             </td>
-                                            <td class="px-6 py-4 bg-gray-100 text-center">
-                                                {{ $d->tanggal_mulai }}
-                                            </td>
-                                            <td class="px-6 py-4 bg-gray-100 text-center">
-                                                {{ $d->tanggal_selesai }}
-                                            </td>
-                                            {{-- <td class="px-6 py-4 bg-gray-100 text-center">
-                                                {{ $d->status }}
-                                            </td> --}}
+
+                                            @foreach ($d->detail_pengajuan_cuti as $detail)
+                                                <td class="px-6 py-4 bg-gray-100 text-center">
+                                                    {{ $detail->tanggal_mulai }}
+                                                </td>
+                                                <td class="px-6 py-4 bg-gray-100 text-center">
+                                                    {{ $detail->tanggal_selesai }}
+                                                </td>
+                                            @endforeach
+
                                             <td class="px-6 py-4 bg-gray-100 text-center">
                                                 @if ($d->status == 'Disetujui')
                                                     <span
@@ -93,22 +94,32 @@
                                                 @endif
                                             </td>
 
-
-                                            {{-- <td id="status-1" class="px-6 py-4 bg-gray-100 text-center">
-                                                <span
-                                                    class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full">Menunggu</span>
-                                            </td> --}}
-
-                                            <td class="px-6 py-4 bg-gray-100 text-center">
+                                            <td class="px-6 py-4 bg-gray-100 text-center flex justify-center gap-2">
                                                 <button onclick="showModalDetail({{ $d->id }})"
                                                     class="bg-amber-500 hover:bg-amber-600 px-3 py-1 rounded-md text-xs text-white">
                                                     Lihat Detail
                                                 </button>
+
+                                                @if ($d->status == 'Disetujui')
+                                                    <a href="{{ route('pengajuancuti.cetak.satu', $d->id) }}"
+                                                        target="_blank"
+                                                        class="bg-blue-500 hover:bg-blue-600 px-3 py-1 rounded-md text-xs text-white">
+                                                        Cetak
+                                                    </a>
+                                                @else
+                                                    <button disabled
+                                                        class="bg-gray-300 text-gray-600 px-3 py-1 rounded-md text-xs">
+                                                        Cetak
+                                                    </button>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
+                        </div>
+                        <div class="mt-4">
+                            {{ $data->links() }}
                         </div>
                     </div>
                 </div>
@@ -136,6 +147,11 @@
                         </label>
                         <p id="nama" class="text-gray-800 text-sm bg-gray-100 rounded-lg p-2.5"></p>
                     </div>
+                    <div>
+                        <label class="block mb-2 text-sm font-medium text-gray-900">Jenis Cuti :</label>
+                        <p id="jenis_cuti" class="text-gray-800 text-sm bg-gray-100 rounded-lg p-2.5"></p>
+                    </div>
+
                     <div>
                         <label class="block mb-2 text-sm font-medium text-gray-900">Tanggal Pengajuan :
                         </label>
@@ -187,12 +203,14 @@
     </div>
 </x-app-layout>
 
+
 <script>
     function showModalDetail(id) {
         fetch(`/pengajuancuti/${id}`)
             .then(res => res.json())
             .then(data => {
                 document.getElementById('nama').textContent = data.nama;
+                document.getElementById('jenis_cuti').textContent = data.jenis_cuti;
                 document.getElementById('tanggal_pengajuan').textContent = data.tanggal_pengajuan;
                 document.getElementById('tanggal_mulai').textContent = data.tanggal_mulai;
                 document.getElementById('tanggal_selesai').textContent = data.tanggal_selesai;

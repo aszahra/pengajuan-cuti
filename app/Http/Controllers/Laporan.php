@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cuti;
+use App\Models\Pegawai;
 use App\Models\PengajuanCuti;
 use Illuminate\Http\Request;
 
@@ -12,7 +14,15 @@ class Laporan extends Controller
      */
     public function index()
     {
-        return view('page.laporan.index');
+        $data = PengajuanCuti::all();
+        $pegawai = Pegawai::all();
+        $cuti = Cuti::all();
+
+        return view('page.laporan.index')->with([
+            'data' => $data,
+            'pegawai' => $pegawai,
+            'cuti' => $cuti,
+        ]);
     }
 
     /**

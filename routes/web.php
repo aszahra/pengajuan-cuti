@@ -18,10 +18,15 @@ Route::resource('departemen', DepartemenController::class)->middleware('auth');
 Route::resource('jabatan', JabatanController::class)->middleware('auth');
 Route::resource('cuti', CutiController::class)->middleware('auth');
 Route::resource('pegawai', PegawaiController::class)->middleware('auth');
+
+// Route::get('/pengajuancuti/detail/{id}', [PengajuanCutiController::class, 'showDetail']);
+// Route::middleware('auth')->get('/pengajuancuti/detail/{id}', [PengajuanCutiController::class, 'showDetail']);
 Route::resource('pengajuancuti', PengajuanCutiController::class)->middleware('auth');
+
 Route::get('/pengajuancuti/{id}', [PengajuanCutiController::class, 'show'])->name('pengajuancuti.show');
 Route::put('/status/{id}', [PengajuanCutiController::class, 'updateStatus'])->name('update.status');
 Route::resource('laporan', Laporan::class)->middleware('auth');
+Route::get('/pengajuancuti/{id}/cetak', [PengajuanCutiController::class, 'cetakSatu'])->name('pengajuancuti.cetak.satu');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

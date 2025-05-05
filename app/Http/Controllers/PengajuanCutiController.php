@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cuti;
+use App\Models\DetailPengajuanCuti;
 use App\Models\Pegawai;
 use App\Models\PengajuanCuti;
 use Carbon\Carbon;
@@ -15,9 +16,11 @@ class PengajuanCutiController extends Controller
      */
     public function index()
     {
-        $data = PengajuanCuti::paginate(5);
+        $data = PengajuanCuti::with('detail_pengajuan_cuti')->paginate(5);
+        // $data = PengajuanCuti::paginate(5);
         $pegawai = Pegawai::all();
         $cuti = Cuti::all();
+
         return view('page.pengajuancuti.index')->with([
             'data' => $data,
             'pegawai' => $pegawai,
@@ -43,18 +46,37 @@ class PengajuanCutiController extends Controller
      */
     public function store(Request $request)
     {
-        $data = [
+        $pengajuan = PengajuanCuti::create([
             'id_pegawai' => $request->input('id_pegawai'),
-            'id_cuti' => $request->input('id_cuti'),
-            'tanggal_pengajuan' => $request->input('tanggal_pengajuan'),
-            'tanggal_mulai' => $request->input('tanggal_mulai'),
-            'tanggal_selesai' => $request->input('tanggal_selesai'),
+            // 'tanggal_pengajuan' => $request->input('tanggal_pengajuan'),
             'status' => $request->input('status'),
             'keterangan' => $request->input('keterangan'),
             'tanggal_pengajuan' => Carbon::now(),
-        ];
+        ]);
 
-        PengajuanCuti::create($data);
+        // try {
+        //     DetailPengajuanCuti::create([
+        //         'id_pengajuan_cuti' => $pengajuan->id,
+        //         'id_cuti' => $request->input('id_cuti'),
+        //         'tanggal_mulai' => $request->input('tanggal_mulai'),
+        //         'tanggal_selesai' => $request->input('tanggal_selesai'),
+        //         'jumlah' => $request->input('jumlah'),
+        //         'sisa_cuti' => $request->input('sisa_cuti')
+        //     ]);
+        //     dd("Detail tersimpan");
+        // } catch (\Exception $e) {
+        //     dd("Gagal simpan detail:", $e->getMessage());
+        // }
+
+
+        DetailPengajuanCuti::create([
+            'id_pengajuan_cuti' => $pengajuan->id,
+            'id_cuti' => $request->input('id_cuti'),
+            'tanggal_mulai' => $request->input('tanggal_mulai'),
+            'tanggal_selesai' => $request->input('tanggal_selesai'),
+            'jumlah' => $request->input('jumlah'),
+            'sisa_cuti' => $request->input('sisa_cuti')
+        ]);
 
         return redirect()
             ->route('pengajuancuti.index')
@@ -67,7 +89,6 @@ class PengajuanCutiController extends Controller
     public function show($id)
     {
         $data = PengajuanCuti::findOrFail($id);
-        // return view('page.pengajuancuti.show', compact('data'));
         return response()->json($data);
     }
 
@@ -104,5 +125,12 @@ class PengajuanCutiController extends Controller
         return redirect()
             ->route('pengajuancuti.index')
             ->with('message', 'Data sudah ditambahkan');
+    }
+
+    public function cetakSatu($id)
+    {
+        $data = PengajuanCuti::with(['pegawai', 'detail_pengajuan_cuti'])->findOrFail($id);
+
+        return view('page.laporan.print', compact('data'));
     }
 }
