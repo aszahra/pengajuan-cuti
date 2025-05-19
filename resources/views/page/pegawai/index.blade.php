@@ -23,7 +23,7 @@
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIP</label>
                                 <input name="nip" type="number" id="base-input"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="Masukan nomor induk pegawai..">
+                                    placeholder="Masukan nomor induk pegawai.." required>
                             </div>
                             <div class="mb-5">
                                 <label for="base-input"
@@ -31,13 +31,13 @@
                                     Pegawai</label>
                                 <input name="nama" type="text" id="base-input"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="Masukan nama pegawai...">
+                                    placeholder="Masukan nama pegawai..." required>
                             </div>
                             <div class="mb-5">
                                 <label for="id_jabatan"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jabatan</label>
                                 <select class="js-example-placeholder-single js-states form-control w-full"
-                                    name="id_jabatan" placeholder="Pilih Jabatan">
+                                    name="id_jabatan" placeholder="Pilih Jabatan" required>
                                     <option value="" disabled selected>Pilih...</option>
                                     @foreach ($jabatan as $k)
                                         <option value="{{ $k->id }}">
@@ -50,7 +50,7 @@
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis
                                     Kelamin</label>
                                 <select class="js-example-placeholder-single js-states form-control w-full"
-                                    name="jenis_kelamin">
+                                    name="jenis_kelamin" required>
                                     <option value="" disabled selected>Pilih...</option>
                                     <option value="Perempuan">Perempuan</option>
                                     <option value="Laki-Laki">Laki-Laki</option>
@@ -71,21 +71,21 @@
                                     HP</label>
                                 <input name="no_hp" type="number" id="base-input"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="Masukan nomor hp...">
+                                    placeholder="Masukan nomor hp..." required>
                             </div>
                             <div class="mb-5">
                                 <label for="base-input"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat</label>
                                 <input name="alamat" type="text" id="base-input"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="Masukan Alamat...">
+                                    placeholder="Masukan Alamat..." required>
                             </div>
                             <div class="mb-5">
                                 <label for="base-input"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status
                                     Pegawai</label>
                                 <select class="js-example-placeholder-single js-states form-control w-full"
-                                    name="status_pegawai">
+                                    name="status_pegawai" required>
                                     <option value="" disabled selected>Pilih...</option>
                                     <option value="Aktif">Aktif</option>
                                     <option value="Cuti">Cuti</option>
@@ -233,21 +233,21 @@
                                 </label>
                             <input type="text" id="nip" name="nip"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Masukan jumlah cuti disini...">
+                                placeholder="Masukan jumlah cuti disini..." required>
                         </div>
                         <div class="">
                             <label for="text" class="block mb-2 text-sm font-medium text-gray-900">Nama
                                 Pegawai</label>
                             <input type="text" id="nama" name="nama"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Masukan jumlah cuti disini...">
+                                placeholder="Masukan jumlah cuti disini..." required>
                         </div>
                         <div class="">
                             <label for="id_jabatan"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jabatan</label>
                             <select class="js-example-placeholder-single js-states form-control w-full"
                                 name="id_jabatan" id="id_jabatan" placeholder="Pilih Jabatan">
-                                <option value="" disabled selected>Pilih...</option>
+                                <option value="" disabled selected required>Pilih...</option>
                                 @foreach ($jabatan as $k)
                                     <option value="{{ $k->id }}">{{ $k->level }} -
                                         {{ $k->departemen->nama }}</option>
@@ -259,7 +259,7 @@
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis
                                 Kelamin</label>
                             <select class="js-example-placeholder-single js-states form-control w-full"
-                                name="jenis_kelamin" id="jenis_kelamin">
+                                name="jenis_kelamin" id="jenis_kelamin" required>
                                 <option value="" disabled selected>Pilih...</option>
                                 <option value="Perempuan">Perempuan</option>
                                 <option value="Laki-Laki">Laki-Laki</option>
@@ -280,21 +280,21 @@
                                 HP</label>
                             <input name="no_hp" id="no_hp" type="number"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Masukan nomor hp...">
+                                placeholder="Masukan nomor hp..." required>
                         </div>
                         <div class="">
                             <label for="text"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat</label>
                             <input name="alamat" type="text" id="alamat"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Masukan Alamat...">
+                                placeholder="Masukan Alamat..." required>
                         </div>
                         <div class="">
                             <label for="base-input"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status
                                 Pegawai</label>
                             <select class="js-example-placeholder-single js-states form-control w-full"
-                                name="status_pegawai" id="status_pegawai">
+                                name="status_pegawai" id="status_pegawai" required>
                                 <option value="" disabled selected>Pilih...</option>
                                 <option value="Aktif">Aktif</option>
                                 <option value="Cuti">Cuti</option>
@@ -331,40 +331,36 @@
         let url = "{{ route('pegawai.update', ':id') }}".replace(':id', id);
 
         let status = document.getElementById(modalTarget);
-        document.getElementById('title_source').innerText = `UPDATE PEGAWAI ${nama}`;
+        document.getElementById('title_source').innerText = `Update Pegawai ${nama}?`;
 
-        // Mengisi nilai input teks
         document.getElementById('nip').value = nip;
         document.getElementById('nama').value = nama;
         document.getElementById('tanggal_lahir').value = tanggal_lahir;
         document.getElementById('alamat').value = alamat;
         document.getElementById('no_hp').value = no_hp;
 
-        // Mengisi nilai select dan memperbarui select2
         const jabatanSelect = document.getElementById('id_jabatan');
         const jenisKelaminSelect = document.getElementById('jenis_kelamin');
         const statusPegawaiSelect = document.getElementById('status_pegawai');
 
         jabatanSelect.value = id_jabatan;
-        $(jabatanSelect).trigger('change'); // Perbarui select2
+        $(jabatanSelect).trigger('change'); 
 
         jenisKelaminSelect.value = jenis_kelamin;
-        $(jenisKelaminSelect).trigger('change'); // Perbarui select2
+        $(jenisKelaminSelect).trigger('change'); 
 
-        console.log("Status Pegawai:", status_pegawai); // Debugging
+        console.log("Status Pegawai:", status_pegawai); 
         statusPegawaiSelect.value = status_pegawai;
-        $(statusPegawaiSelect).trigger('change'); // Perbarui select2
+        $(statusPegawaiSelect).trigger('change'); 
 
         document.getElementById('formSourceButton').innerText = 'Simpan';
         document.getElementById('formSourceModal').setAttribute('action', url);
 
-        // Menambahkan CSRF token
         let csrfToken = document.createElement('input');
         csrfToken.setAttribute('type', 'hidden');
         csrfToken.setAttribute('value', '{{ csrf_token() }}');
         formModal.appendChild(csrfToken);
 
-        // Menambahkan method PATCH
         let methodInput = document.createElement('input');
         methodInput.setAttribute('type', 'hidden');
         methodInput.setAttribute('name', '_method');
@@ -380,7 +376,7 @@
     }
 
     const pegawaiDelete = async (id, nama) => {
-        let tanya = confirm(`Apakah anda yakin untuk menghapus Pegawai ${nama} ?`);
+        let tanya = confirm(`Apakah anda yakin untuk menghapus Pegawai ${nama}?`);
         if (tanya) {
             try {
                 const response = await axios.post(`/pegawai/${id}`, {
@@ -401,94 +397,3 @@
         }
     };
 </script>
-
-{{-- <script>
-    const editSourceModal = (button) => {
-        const formModal = document.getElementById('formSourceModal');
-        const modalTarget = button.dataset.modalTarget;
-        const id = button.dataset.id;
-        const nama = button.dataset.nama;
-        const id_jabatan = button.dataset.id_jabatan; // Jabatan dari dataset
-        const jenis_kelamin = button.dataset.jenis_kelamin; // Jenis Kelamin dari dataset
-        const tanggal_lahir = button.dataset.tanggal_lahir;
-        const no_hp = button.dataset.no_hp;
-        const alamat = button.dataset.alamat;
-        const status_pegawai = button.dataset.status_pegawai; // Status Pegawai dari dataset
-        let url = "{{ route('pegawai.update', ':id') }}".replace(':id', id);
-        let status = document.getElementById(modalTarget);
-        document.getElementById('title_source').innerText = `UPDATE PEGAWAI ${nama}`;
-        // Set nilai input biasa
-        document.getElementById('id').value = id;
-        document.getElementById('nama').value = nama;
-        document.getElementById('tanggal_lahir').value = tanggal_lahir;
-        document.getElementById('no_hp').value = no_hp;
-        document.getElementById('alamat').value = alamat;
-        // Fungsi untuk memilih opsi pada <select>
-        const setSelectValue = (selectId, value) => {
-            const selectElement = document.getElementById(selectId);
-            if (selectElement) {
-                // Reset semua opsi
-                Array.from(selectElement.options).forEach(option => {
-                    option.selected = false;
-                });
-                // Cari dan pilih opsi yang sesuai
-                const selectedOption = Array.from(selectElement.options).find(option => option.value === value);
-                if (selectedOption) {
-                    selectedOption.selected = true;
-                }
-                // Debugging: Periksa apakah nilai ditemukan
-                console.log(`Selected Option for ${selectId}:`, selectedOption);
-                // Perbarui Select2 jika digunakan
-                $(selectElement).val(value).trigger('change');
-            }
-        };
-        // Set nilai untuk elemen <select>
-        setSelectValue('id_jabatan', id_jabatan); // Jabatan
-        setSelectValue('jenis_kelamin', jenis_kelamin); // Jenis Kelamin
-        setSelectValue('status_pegawai', status_pegawai); // Status Pegawai
-        // Update atribut form
-        document.getElementById('formSourceButton').innerText = 'Simpan';
-        document.getElementById('formSourceModal').setAttribute('action', url);
-        // Tambahkan CSRF token
-        let csrfToken = document.createElement('input');
-        csrfToken.setAttribute('type', 'hidden');
-        csrfToken.setAttribute('value', '{{ csrf_token() }}');
-        formModal.appendChild(csrfToken);
-        // Tambahkan method PATCH
-        let methodInput = document.createElement('input');
-        methodInput.setAttribute('type', 'hidden');
-        methodInput.setAttribute('name', '_method');
-        methodInput.setAttribute('value', 'PATCH');
-        formModal.appendChild(methodInput);
-        // Toggle modal visibility
-        status.classList.toggle('hidden');
-    };
-
-    const sourceModalClose = (button) => {
-        const modalTarget = button.dataset.modalTarget;
-        let status = document.getElementById(modalTarget);
-        status.classList.toggle('hidden');
-    }
-
-    const pegawaiDelete = async (id, nama) => {
-        let tanya = confirm(`Apakah anda yakin untuk menghapus Pegawai ${nama} ?`);
-        if (tanya) {
-            try {
-                const response = await axios.post(`/pegawai/${id}`, {
-                    '_method': 'DELETE',
-                    '_token': document.querySelector('meta[name="csrf-token"]').getAttribute(
-                        'content')
-                });
-                if (response.status === 200) {
-                    alert('Pegawai berhasil dihapus');
-                    location.reload();
-                } else {
-                    alert('Gagal menghapus pegawai. Silakan coba lagi.');
-                }
-            } catch (error) {
-                console.error(error);
-                alert('Terjadi kesalahan saat menghapus pegawai. Silakan cek konsol untuk detail.');
-            }
-        }
-    };
-</script> --}}

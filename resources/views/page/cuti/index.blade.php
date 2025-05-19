@@ -147,21 +147,21 @@
                             <label for="text" class="block mb-2 text-sm font-medium text-gray-900">Nama</label>
                             <input type="text" id="nama" name="nama"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Masukan nama disini...">
+                                placeholder="Masukan nama disini..." required>
                         </div>
                         <div class="">
                             <label for="text" class="block mb-2 text-sm font-medium text-gray-900">Jumlah
                                 Cuti</label>
                             <input type="number" id="jumlah_cuti" name="jumlah_cuti"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Masukan jumlah cuti disini...">
+                                placeholder="Masukan jumlah cuti disini..." required>
                         </div>
                         <div class="">
                             <label for="text"
                                 class="block mb-2 text-sm font-medium text-gray-900">Keterangan</label>
                             <input type="text" id="keterangan" name="keterangan"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Masukan keterangan disini...">
+                                placeholder="Masukan keterangan disini..." required>
                         </div>
                     </div>
                     <div class="flex items-center p-4 space-x-2 border-t border-gray-200 rounded-b">
