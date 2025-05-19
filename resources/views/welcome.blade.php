@@ -28,9 +28,9 @@
                             <a href="{{ url('/dashboard') }}" class="hover:scale-105 transition-transform">Dashboard</a>
                         @else
                             <a href="{{ route('login') }}" class="hover:scale-105 transition-transform">Log in</a>
-                            @if (Route::has('register'))
+                            {{-- @if (Route::has('register'))
                                 <a href="{{ route('register') }}" class="hover:scale-105 transition-transform">Register</a>
-                            @endif
+                            @endif --}}
                         @endauth
                     </nav>
                 @endif

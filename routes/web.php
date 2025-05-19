@@ -28,6 +28,8 @@ Route::put('/status/{id}', [PengajuanCutiController::class, 'updateStatus'])->na
 Route::resource('laporan', Laporan::class)->middleware('auth');
 Route::get('/pengajuancuti/{id}/cetak', [PengajuanCutiController::class, 'cetakSatu'])->name('pengajuancuti.cetak.satu');
 
+// Route::get('/register', 'LoginController@showLoginForm')->name('register');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
