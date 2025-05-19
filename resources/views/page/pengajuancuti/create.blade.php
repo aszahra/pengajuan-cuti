@@ -12,7 +12,7 @@
                     <div class="p-4 bg-gray-100 mb-6 rounded-xl font-bold">
                         <div class="flex items-center justify-between">
                             <div class="w-full text-center text-xl">
-                                    FORM INPUT PENGAJUAN CUTI
+                                FORM INPUT PENGAJUAN CUTI
                             </div>
                         </div>
                     </div>
@@ -25,7 +25,7 @@
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
                                         Pegawai</label>
                                     <select class="js-example-placeholder-single js-states form-control w-full"
-                                        name="id_pegawai" placeholder="Pilih Pegawai">
+                                        name="id_pegawai" placeholder="Pilih Pegawai" required>
                                         <option value="" disabled selected>Pilih...</option>
                                         @foreach ($pegawai as $p)
                                             <option value="{{ $p->id }}">{{ $p->nama }}</option>
@@ -39,7 +39,7 @@
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis
                                         Cuti</label>
                                     <select class="js-example-placeholder-single js-states form-control w-full"
-                                        name="id_cuti" placeholder="Pilih Jenis Cuti">
+                                        name="id_cuti" placeholder="Pilih Jenis Cuti" required>
                                         <option value="" disabled selected>Pilih...</option>
                                         @foreach ($cuti as $p)
                                             <option value="{{ $p->id }}">{{ $p->nama }}</option>
@@ -53,7 +53,6 @@
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal
                                         Mulai</label>
                                     <input type="date" id="tanggal_mulai" name="tanggal_mulai"
-                                        value="{{ date('Y-m-d') }}"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                         required />
                                 </div>
@@ -62,7 +61,6 @@
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal
                                         Selesai</label>
                                     <input type="date" id="tanggal_selesai" name="tanggal_selesai"
-                                        value="{{ date('Y-m-d') }}"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                         required />
                                 </div>
@@ -73,7 +71,6 @@
                                     <input type="number" id="jumlah" name="jumlah" readonly
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                                 </div>
-
                             </div>
                             <div class="flex gap-5">
                                 <div class="mb-5 w-full">
@@ -105,25 +102,41 @@
         </div>
     </div>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const tanggalMulai = document.getElementById('tanggal_mulai');
-            const tanggalSelesai = document.getElementById('tanggal_selesai');
-            const jumlahCuti = document.getElementById('jumlah');
+        const tanggalMulai = document.getElementById('tanggal_mulai');
+        const tanggalSelesai = document.getElementById('tanggal_selesai');
+        const jumlahCuti = document.getElementById('jumlah');
 
-            function hitungJumlahCuti() {
-                const mulai = new Date(tanggalMulai.value);
-                const selesai = new Date(tanggalSelesai.value);
-                const selisihWaktu = selesai - mulai;
-                const selisihHari = Math.floor(selisihWaktu / (1000 * 60 * 60 * 24)) + 1;
-
-                jumlahCuti.value = selisihHari > 0 ? selisihHari : 0;
+        tanggalMulai.addEventListener('change', function() {
+            tanggalSelesai.min = this.value;
+            if (tanggalSelesai.value < this.value) {
+                tanggalSelesai.value = this.value;
             }
+            hitungJumlahCuti();
+        });
 
-            tanggalMulai.addEventListener('change', hitungJumlahCuti);
-            tanggalSelesai.addEventListener('change', hitungJumlahCuti);
+        tanggalSelesai.addEventListener('change', function() {
+            if (this.value < tanggalMulai.value) {
+                alert("Tanggal selesai tidak boleh sebelum tanggal mulai!");
+                this.value = tanggalMulai.value;
+            }
+            hitungJumlahCuti();
+        });
 
+        function hitungJumlahCuti() {
+            if (tanggalMulai.value && tanggalSelesai.value) {
+                const start = new Date(tanggalMulai.value);
+                const end = new Date(tanggalSelesai.value);
+                const timeDiff = end - start;
+                const daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24)) + 1;
+                jumlahCuti.value = daysDiff > 0 ? daysDiff : 0;
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', function() {
+            tanggalSelesai.min = tanggalMulai.value;
             hitungJumlahCuti();
         });
     </script>
+
 
 </x-app-layout>

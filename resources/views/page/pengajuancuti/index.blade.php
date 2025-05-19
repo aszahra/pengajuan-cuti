@@ -57,7 +57,7 @@
                                 </thead>
                                 <tbody>
                                     @php
-                                        $no = 1;
+                                        $no = $data->firstItem();
                                     @endphp
                                     @foreach ($data as $d)
                                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
@@ -69,15 +69,18 @@
                                                 {{ $d->pegawai->nama }}
                                             </td>
                                             <td class="px-6 py-4 bg-gray-100 text-center">
-                                                {{ $d->tanggal_pengajuan }}
+                                                {{ \Carbon\Carbon::parse($d->tanggal_pengajuan)->translatedFormat('d F Y') }}
+                                                {{-- {{ $d->tanggal_pengajuan }} --}}
                                             </td>
 
                                             @foreach ($d->detail_pengajuan_cuti as $detail)
                                                 <td class="px-6 py-4 bg-gray-100 text-center">
-                                                    {{ $detail->tanggal_mulai }}
+                                                    {{ \Carbon\Carbon::parse($detail->tanggal_mulai)->translatedFormat('d F Y') }}
+                                                    {{-- {{ $detail->tanggal_mulai }} --}}
                                                 </td>
                                                 <td class="px-6 py-4 bg-gray-100 text-center">
-                                                    {{ $detail->tanggal_selesai }}
+                                                    {{ \Carbon\Carbon::parse($detail->tanggal_selesai)->translatedFormat('d F Y') }}
+                                                    {{-- {{ $detail->tanggal_selesai }} --}}
                                                 </td>
                                             @endforeach
 
