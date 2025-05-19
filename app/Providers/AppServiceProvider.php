@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
@@ -26,5 +27,6 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('role-K', function($user) {
             return $user->role === 'K';
         });
+        Carbon::setLocale('id');
     }
 }

@@ -94,14 +94,14 @@
         </thead>
         <tbody>
             @php
-                $totalHari = 0; // Untuk menghitung total hari cuti
+                $totalHari = 0;
             @endphp
             @foreach($data->detail_pengajuan_cuti as $i => $detail)
                 @php
                     $tanggalMulai = \Carbon\Carbon::parse($detail->tanggal_mulai);
                     $tanggalSelesai = \Carbon\Carbon::parse($detail->tanggal_selesai);
-                    $jumlahHari = $tanggalMulai->diffInDays($tanggalSelesai) + 1; // Hitung selisih hari
-                    $totalHari += $jumlahHari; // Tambahkan ke total hari
+                    $jumlahHari = $tanggalMulai->diffInDays($tanggalSelesai) + 1; 
+                    $totalHari += $jumlahHari; 
                 @endphp
                 <tr>
                     <td style="text-align: center;">{{ $i + 1 }}</td>
