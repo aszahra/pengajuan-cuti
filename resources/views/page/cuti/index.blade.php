@@ -12,7 +12,6 @@
                     <div>DATA CUTI</div>
                 </div>
                 <div class="p-6 text-gray-900 dark:text-gray-100 flex gap-5">
-                    {{-- FORM ADD CUTI --}}
                     <div class="w-full bg-gray-100 p-4 rounded-xl">
                         <div class="mb-5">
                             INPUT DATA CUTI
@@ -21,31 +20,31 @@
                             @csrf
                             <div class="mb-5">
                                 <label for="base-input"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama</label>
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
+                                    Cuti</label>
                                 <input name="nama" type="text" id="base-input"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="Masukan nama cuti...">
+                                    placeholder="Masukan nama cuti..." required>
                             </div>
                             <div class="mb-5">
                                 <label for="base-input"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah
-                                    Cuti</label>
+                                </label>
                                 <input name="jumlah_cuti" type="number" id="base-input"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="Masukan jumlah cuti...">
+                                    placeholder="Masukan jumlah cuti..." required>
                             </div>
                             <div class="mb-5">
                                 <label for="base-input"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Keterangan</label>
                                 <input name="keterangan" type="text" id="base-input"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="Masukan keterangan cuti...">
+                                    placeholder="Masukan keterangan cuti..." required>
                             </div>
                             <button type="submit"
                                 class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">SIMPAN</button>
                         </form>
                     </div>
-                    {{-- TABLE MEMBER --}}
                     <div class="w-full">
                         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -56,10 +55,10 @@
                                             NO
                                         </th>
                                         <th scope="col" class="px-6 py-3">
-                                            NAMA
+                                            NAMA CUTI
                                         </th>
                                         <th scope="col" class="px-6 py-3">
-                                            JUMLAH CUTI
+                                            JUMLAH
                                         </th>
                                         <th scope="col" class="px-6 py-3">
                                             KETERANGAN
@@ -92,7 +91,8 @@
                                             <td class="px-6 py-4">
                                                 <button type="button" data-id="{{ $k->id }}"
                                                     data-modal-target="sourceModal" data-nama="{{ $k->nama }}"
-                                                    data-jumlah_cuti="{{ $k->jumlah_cuti }}" data-keterangan="{{ $k->keterangan }}"
+                                                    data-jumlah_cuti="{{ $k->jumlah_cuti }}"
+                                                    data-keterangan="{{ $k->keterangan }}"
                                                     onclick="editSourceModal(this)"
                                                     class="bg-amber-500 hover:bg-amber-600 px-3 py-1 rounded-md text-xs text-white">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16"
@@ -157,7 +157,8 @@
                                 placeholder="Masukan jumlah cuti disini...">
                         </div>
                         <div class="">
-                            <label for="text" class="block mb-2 text-sm font-medium text-gray-900">Keterangan</label>
+                            <label for="text"
+                                class="block mb-2 text-sm font-medium text-gray-900">Keterangan</label>
                             <input type="text" id="keterangan" name="keterangan"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Masukan keterangan disini...">

@@ -23,7 +23,7 @@
                                 <label for="id_departemen"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Departemen</label>
                                 <select class="js-example-placeholder-single js-states form-control w-full"
-                                    name="id_departemen" placeholder="Pilih Departemen">
+                                    name="id_departemen" placeholder="Pilih Departemen" required>
                                     <option value="" disabled selected>Pilih...</option>
                                     @foreach ($departemen as $k)
                                         <option value="{{ $k->id }}">{{ $k->nama }}</option>
@@ -34,7 +34,7 @@
                                 <label for="base-input"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Level</label>
                                 <select class="js-example-placeholder-single js-states form-control w-full"
-                                    name="level" data-placeholder="Pilih Level">
+                                    name="level" data-placeholder="Pilih Level" required>
                                     <option value="">Pilih...</option>
                                     <option value="Entry Level">Entry Level</option>
                                     <option value="Staff">Staff</option>
@@ -143,7 +143,7 @@
                             <label for="id_departemen"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Departemen</label>
                             <select class="js-example-placeholder-single js-states form-control w-full"
-                                name="id_departemen" id="id_departemen" data-placeholder="Pilih Outlet">
+                                name="id_departemen" id="id_departemen" data-placeholder="Pilih Outlet" required>
                                 <option value="" disabled selected>Pilih...</option>
                                 @foreach ($departemen as $k)
                                     <option value="{{ $k->id }}">{{ $k->nama }}</option>
@@ -155,7 +155,7 @@
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Level
                             </label>
                             <select class="js-example-placeholder-single js-states form-control w-full" name="level"
-                                id="level" data-placeholder="Pilih Level">
+                                id="level" data-placeholder="Pilih Level" required>
                                 <option value="">Pilih...</option>
                                 <option value="Entry Level">Entry Level</option>
                                 <option value="Staff">Staff</option>
@@ -181,7 +181,7 @@ const editSourceModal = (button) => {
     const formModal = document.getElementById('formSourceModal');
     const modalTarget = button.dataset.modalTarget;
     const id = button.dataset.id;
-    const id_departemen = button.dataset.id_departemen; // Ambil id_departemen dari dataset
+    const id_departemen = button.dataset.id_departemen; 
     const level = button.dataset.level;
 
     let url = "{{ route('jabatan.update', ':id') }}".replace(':id', id);
@@ -189,40 +189,32 @@ const editSourceModal = (button) => {
     let status = document.getElementById(modalTarget);
     document.getElementById('title_source').innerText = `UPDATE JABATAN?`;
 
-    // Set nilai untuk id_departemen
     const departemenSelect = document.getElementById('id_departemen');
     const idDepartemenValue = button.dataset.id_departemen;
 
-    // Reset semua opsi
     Array.from(departemenSelect.options).forEach(option => {
         option.selected = false;
     });
 
-    // Cari dan pilih opsi yang sesuai
     const selectedDepartemenOption = Array.from(departemenSelect.options).find(option => option.value === idDepartemenValue);
     if (selectedDepartemenOption) {
         selectedDepartemenOption.selected = true;
     }
 
-    // Perbarui Select2 jika digunakan
     $(departemenSelect).val(idDepartemenValue).trigger('change');
 
-    // Set nilai untuk level
     const levelSelect = document.getElementById('level');
     const levelValue = button.dataset.level;
 
-    // Reset semua opsi
     Array.from(levelSelect.options).forEach(option => {
         option.selected = false;
     });
 
-    // Cari dan pilih opsi yang sesuai
     const selectedLevelOption = Array.from(levelSelect.options).find(option => option.value === levelValue);
     if (selectedLevelOption) {
         selectedLevelOption.selected = true;
     }
 
-    // Perbarui Select2 jika digunakan
     $(levelSelect).val(levelValue).trigger('change');
 
     document.getElementById('formSourceButton').innerText = 'Simpan';
