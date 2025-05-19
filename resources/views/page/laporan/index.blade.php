@@ -13,7 +13,6 @@
                         <div class="flex items-center justify-between">
                             <div class="w-full text-center text-xl mb-3">
                                 PRINT PENGAJUAN CUTI <br>
-                                kantor saya sendiri mweheheh
                             </div>
                         </div>
                     </div>
