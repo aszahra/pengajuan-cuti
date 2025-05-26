@@ -14,7 +14,7 @@ class PegawaiController extends Controller
     public function index()
     {
         try {
-            $pegawai = Pegawai::paginate(5);
+            $pegawai = Pegawai::paginate(15);
             $jabatan = Jabatan::all();
             return view('page.pegawai.index')->with([
                 'pegawai' => $pegawai,
@@ -32,7 +32,10 @@ class PegawaiController extends Controller
      */
     public function create()
     {
-        //
+        $jabatan = Jabatan::all();
+        return view('page.pegawai.create')->with([
+            'jabatan' => $jabatan
+        ]);
     }
 
     /**
@@ -51,7 +54,7 @@ class PegawaiController extends Controller
                 'alamat' => $request->input('alamat'),
                 'status_pegawai' => $request->input('status_pegawai'),
             ];
-    
+
             Pegawai::create($data);
 
             // return back()->with('message_delete', 'Data Pegawai Sudah ditambahkan');
@@ -99,7 +102,7 @@ class PegawaiController extends Controller
                 'alamat' => $request->input('alamat'),
                 'status_pegawai' => $request->input('status_pegawai'),
             ];
-    
+
             $datas = Pegawai::findOrFail($id);
             $datas->update($data);
             // $nip = $datas->nip;
@@ -123,7 +126,7 @@ class PegawaiController extends Controller
      */
     public function destroy(string $id)
     {
-        try{
+        try {
             $data = Pegawai::findOrFail($id);
             $data->delete();
             return back()->with('message_delete', 'Data Pegawai Sudah dihapus');

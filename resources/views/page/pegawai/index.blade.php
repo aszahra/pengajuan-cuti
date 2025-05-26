@@ -37,24 +37,37 @@
                 </div>
             @endif
 
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-4">
-                    <div>DATA PEGAWAI</div>
+            {{-- <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="flex items-center justify-between"> --}}
+
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg w-full p-4">
+                <div class="flex items-center justify-between font-bold">
+                    <div class="">
+                        DAFTAR PEGAWAI
+                    </div>
+                    <div>
+                        <a href="{{ route('pegawai.create') }}"
+                            class="bg-blue-700 p-1 text-white rounded-xl px-4 hover:bg-sky-400">Tambah Data</a>
+                    </div>
                 </div>
+                {{-- <div class="p-4">
+                    <div>DATA PEGAWAI</div>
+                </div> --}}
                 <div class="p-6 text-gray-900 dark:text-gray-100 flex gap-5">
                     {{-- FORM ADD PEGAWAI --}}
-                    <div class="w-1/2 bg-gray-100 p-4 rounded-xl">
+                    {{-- <div class="w-1/2 bg-gray-100 p-4 rounded-xl">
                         <div class="mb-5">
                             INPUT DATA PEGAWAI
                         </div>
                         <form action="{{ route('pegawai.store') }}" method="post">
                             @csrf
                             <div class="mb-5">
-                                <label for="base-input"
+                                <label for="nip"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIP</label>
-                                <input name="nip" type="number" id="base-input"
+                                <input name="nip" type="text" id="nip"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="Masukan nomor induk pegawai.." required>
+                                    placeholder="Masukkan 10 digit NIP" pattern="\d{10}" maxlength="10" required
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10)">
                             </div>
                             <div class="mb-5">
                                 <label for="base-input"
@@ -99,7 +112,8 @@
                                 <label for="base-input"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nomor
                                     HP</label>
-                                <input name="no_hp" type="number" id="base-input"
+                                <input name="no_hp" type="tel" id="base-input" minlength="12" maxlength="15"
+                                    pattern="\d{12,15}"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder="Masukan nomor hp..." required>
                             </div>
@@ -125,13 +139,13 @@
                             <button type="submit"
                                 class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">SIMPAN</button>
                         </form>
-                    </div>
+                    </div> --}}
                     {{-- TABLE PEGAWAI --}}
-                    <div class="w-1/2">
+                    <div class="">
                         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                 <thead
-                                    class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                    class="text-xs text-center text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                     <tr>
                                         <th scope="col" class="px-6 py-3">
                                             NO
@@ -206,8 +220,7 @@
                                                     data-id_jabatan="{{ $k->id_jabatan }}"
                                                     data-jenis_kelamin="{{ $k->jenis_kelamin }}"
                                                     data-tanggal_lahir="{{ $k->tanggal_lahir }}"
-                                                    data-no_hp="{{ $k->no_hp }}"
-                                                    data-alamat="{{ $k->alamat }}"
+                                                    data-no_hp="{{ $k->no_hp }}" data-alamat="{{ $k->alamat }}"
                                                     data-status_pegawai="{{ $k->status_pegawai }}"
                                                     onclick="editSourceModal(this)"
                                                     class="bg-amber-500 hover:bg-amber-600 px-3 py-1 rounded-md text-xs text-white">
@@ -264,7 +277,8 @@
                             </label>
                             <input type="text" id="nip" name="nip"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Masukan jumlah cuti disini..." required>
+                                placeholder="Masukan NIP (10 digit)" pattern="\d{10}" maxlength="10" required
+                                oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10)">
                         </div>
                         <div class="">
                             <label for="text" class="block mb-2 text-sm font-medium text-gray-900">Nama
@@ -309,7 +323,8 @@
                             <label for="text"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nomor
                                 HP</label>
-                            <input name="no_hp" id="no_hp" type="number"
+                            <input name="no_hp" id="no_hp" type="tel" minlength="12" maxlength="15"
+                                pattern="\d{12,15}"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Masukan nomor hp..." required>
                         </div>
@@ -436,4 +451,23 @@
             alert.remove();
         }
     }, 3000);
+</script>
+
+<script>
+    document.querySelectorAll('form').forEach(form => {
+        form.addEventListener('submit', function(e) {
+            const nipInput = this.querySelector('input[name="nip"]');
+            if (nipInput && nipInput.value.length !== 10) {
+                e.preventDefault();
+                alert('NIP harus terdiri dari tepat 10 digit angka.');
+                nipInput.focus();
+                return false;
+            }
+            return true;
+        });
+    });
+
+    function validateNIP(input) {
+        input.value = input.value.replace(/[^0-9]/g, '').slice(0, 10);
+    }
 </script>
