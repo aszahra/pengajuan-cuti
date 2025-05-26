@@ -58,7 +58,7 @@ class PegawaiController extends Controller
 
             return redirect()
                 ->route('pegawai.index')
-                ->with('message_insert', 'Data Pegawai Sudah ditambahkan');
+                ->with('message_insert', 'Data pegawai berhasil ditambahkan');
         } catch (\Exception $e) {
             return redirect()
                 ->route('pegawai.index')
@@ -109,7 +109,7 @@ class PegawaiController extends Controller
 
             return redirect()
                 ->route('pegawai.index')
-                ->with('message_update', 'Data Pegawai Sudah di update');
+                ->with('message_update', 'Data pegawai berhasil di update');
         } catch (\Exception $e) {
             return redirect()
                 ->route('pegawai.index')

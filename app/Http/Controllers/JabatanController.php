@@ -45,14 +45,14 @@ class JabatanController extends Controller
                 'id_departemen' => $request->input('id_departemen'),
                 'level' => $request->input('level'),
             ];
-    
+
             Jabatan::create($data);
 
             // return back()->with('message_delete', 'Data Jabatan Sudah ditambahkan');
 
             return redirect()
                 ->route('jabatan.index')
-                ->with('message_insert', 'Data Jabatan Sudah ditambahkan');
+                ->with('message_insert', 'Data departemen berhasil ditambahkan');
         } catch (\Exception $e) {
             echo "<script>console.error('PHP Error: " .
                 addslashes($e->getMessage()) . "');</script>";
@@ -92,7 +92,7 @@ class JabatanController extends Controller
                 'id_departemen' => $request->input('id_departemen'),
                 'level' => $request->input('level'),
             ];
-    
+
             $datas = Jabatan::findOrFail($id);
             $datas->update($data);
 
@@ -100,12 +100,12 @@ class JabatanController extends Controller
 
             return redirect()
                 ->route('jabatan.index')
-                ->with('message_update', 'Data Jabatan Sudah di update');
-        }   catch (\Exception $e) {
+                ->with('message_update', 'Data jabatan berhasil di update');
+        } catch (\Exception $e) {
             echo "<script>console.error('PHP Error: " .
                 addslashes($e->getMessage()) . "');</script>";
             return view('error.index');
-        } 
+        }
         // catch (\Exception $e) {
         //     return redirect()
         //         ->route('jabatan.index')
@@ -119,7 +119,7 @@ class JabatanController extends Controller
      */
     public function destroy(string $id)
     {
-        try{
+        try {
             $data = Jabatan::findOrFail($id);
             $data->delete();
             return back()->with('message_delete', 'Data Jabatan Sudah dihapus');

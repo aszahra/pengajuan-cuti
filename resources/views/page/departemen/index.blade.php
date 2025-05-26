@@ -7,6 +7,37 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+
+            @if (session('message_insert'))
+                <div class="flex justify-end p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
+                    role="alert">
+                    <svg class="shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                    </svg>
+                    <span class="sr-only">Success</span>
+                    <div>
+                        <span class="font-medium">Sukses!</span> {{ session('message_insert') }}
+                    </div>
+                </div>
+            @endif
+
+            @if (session('message_update'))
+                <div class="flex justify-end p-4 mb-4 text-sm text-yellow-800 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300"
+                    role="alert">
+                    <svg class="shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                    </svg>
+                    <span class="sr-only">Success</span>
+                    <div>
+                        <span class="font-medium">Sukses!</span> {{ session('message_update') }}
+                    </div>
+                </div>
+            @endif
+
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-4">
                     <div>DATA DEPARTEMEN</div>
@@ -135,7 +166,8 @@
                                 placeholder="Masukan nama disini..." required>
                         </div>
                         <div class="">
-                            <label for="text" class="block mb-2 text-sm font-medium text-gray-900">Deskripsi</label>
+                            <label for="text"
+                                class="block mb-2 text-sm font-medium text-gray-900">Deskripsi</label>
                             <input type="text" id="deskripsi" name="deskripsi"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Masukan deskripsi disini..." required>
@@ -203,14 +235,21 @@
                     alert('Departemen berhasil dihapus');
                     location.reload();
                 } else {
-                    // alert('Gagal menghapus departemen. Silakan coba lagi.');
                     location.windows('error.index');
                 }
             } catch (error) {
                 console.error(error);
-                // alert('Terjadi kesalahan saat menghapus departemen. Silakan cek konsol untuk detail.');
                 location.windows('error.index');
             }
         }
     };
+</script>
+
+<script>
+    setTimeout(() => {
+        const alert = document.querySelector('[role="alert"]');
+        if (alert) {
+            alert.remove();
+        }
+    }, 3000);
 </script>

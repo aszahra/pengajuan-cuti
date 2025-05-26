@@ -49,7 +49,7 @@ class DepartemenController extends Controller
 
             return redirect()
                 ->route('departemen.index')
-                ->with('message_insert', 'Data Departemen Sudah ditambahkan');
+                ->with('message_insert', 'Data departemen berhasil ditambahkan');
         } catch (\Exception $e) {
             echo "<script>console.error('PHP Error: " .
                 addslashes($e->getMessage()) . "');</script>";
@@ -91,7 +91,7 @@ class DepartemenController extends Controller
 
             return redirect()
                 ->route('departemen.index')
-                ->with('message_update', 'Data Departemen Sudah di update');
+                ->with('message_update', 'Data departemen berhasil di update');
         } catch (\Exception $e) {
             echo "<script>console.error('PHP Error: " .
                 addslashes($e->getMessage()) . "');</script>";

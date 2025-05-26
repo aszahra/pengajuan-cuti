@@ -50,7 +50,7 @@ class CutiController extends Controller
 
             return redirect()
                 ->route('cuti.index')
-                ->with('message_insert', 'Data Cuti Sudah ditambahkan');
+                ->with('message_insert', 'Data cuti berhasil ditambahkan');
         } catch (\Exception $e) {
             echo "<script>console.error('PHP Error: " .
                 addslashes($e->getMessage()) . "');</script>";
@@ -99,7 +99,7 @@ class CutiController extends Controller
 
             return redirect()
                 ->route('cuti.index')
-                ->with('message_update', 'Data Cuti Sudah di update');
+                ->with('message_update', 'Data cuti berhasil di update');
         } catch (\Exception $e) {
             echo "<script>console.error('PHP Error: " .
                 addslashes($e->getMessage()) . "');</script>";

@@ -17,6 +17,11 @@ return new class extends Migration
             $table->date('tanggal_pengajuan')->nullable();
             $table->string('status');
             $table->text('keterangan')->nullable();
+            $table->string('id_cuti');
+            $table->date('tanggal_mulai');
+            $table->date('tanggal_selesai');
+            $table->integer('jumlah');
+            $table->integer('sisa_cuti');
             $table->timestamps();
         });
     }

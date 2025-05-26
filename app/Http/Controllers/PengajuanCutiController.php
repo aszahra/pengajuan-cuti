@@ -20,7 +20,6 @@ class PengajuanCutiController extends Controller
         // $data = PengajuanCuti::paginate(5);
         $pegawai = Pegawai::all();
         $cuti = Cuti::all();
-
         return view('page.pengajuancuti.index')->with([
             'data' => $data,
             'pegawai' => $pegawai,

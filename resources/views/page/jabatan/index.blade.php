@@ -7,6 +7,37 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+
+            @if (session('message_insert'))
+                <div class="flex justify-end p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
+                    role="alert">
+                    <svg class="shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                    </svg>
+                    <span class="sr-only">Success</span>
+                    <div>
+                        <span class="font-medium">Sukses!</span> {{ session('message_insert') }}
+                    </div>
+                </div>
+            @endif
+
+            @if (session('message_update'))
+                <div class="flex justify-end p-4 mb-4 text-sm text-yellow-800 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300"
+                    role="alert">
+                    <svg class="shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                    </svg>
+                    <span class="sr-only">Success</span>
+                    <div>
+                        <span class="font-medium">Sukses!</span> {{ session('message_update') }}
+                    </div>
+                </div>
+            @endif
+
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-4">
                     <div>DATA JABATAN</div>
@@ -177,62 +208,63 @@
     </div>
 </x-app-layout>
 <script>
-const editSourceModal = (button) => {
-    const formModal = document.getElementById('formSourceModal');
-    const modalTarget = button.dataset.modalTarget;
-    const id = button.dataset.id;
-    const id_departemen = button.dataset.id_departemen; 
-    const level = button.dataset.level;
+    const editSourceModal = (button) => {
+        const formModal = document.getElementById('formSourceModal');
+        const modalTarget = button.dataset.modalTarget;
+        const id = button.dataset.id;
+        const id_departemen = button.dataset.id_departemen;
+        const level = button.dataset.level;
 
-    let url = "{{ route('jabatan.update', ':id') }}".replace(':id', id);
+        let url = "{{ route('jabatan.update', ':id') }}".replace(':id', id);
 
-    let status = document.getElementById(modalTarget);
-    document.getElementById('title_source').innerText = `UPDATE JABATAN?`;
+        let status = document.getElementById(modalTarget);
+        document.getElementById('title_source').innerText = `UPDATE JABATAN?`;
 
-    const departemenSelect = document.getElementById('id_departemen');
-    const idDepartemenValue = button.dataset.id_departemen;
+        const departemenSelect = document.getElementById('id_departemen');
+        const idDepartemenValue = button.dataset.id_departemen;
 
-    Array.from(departemenSelect.options).forEach(option => {
-        option.selected = false;
-    });
+        Array.from(departemenSelect.options).forEach(option => {
+            option.selected = false;
+        });
 
-    const selectedDepartemenOption = Array.from(departemenSelect.options).find(option => option.value === idDepartemenValue);
-    if (selectedDepartemenOption) {
-        selectedDepartemenOption.selected = true;
-    }
+        const selectedDepartemenOption = Array.from(departemenSelect.options).find(option => option.value ===
+            idDepartemenValue);
+        if (selectedDepartemenOption) {
+            selectedDepartemenOption.selected = true;
+        }
 
-    $(departemenSelect).val(idDepartemenValue).trigger('change');
+        $(departemenSelect).val(idDepartemenValue).trigger('change');
 
-    const levelSelect = document.getElementById('level');
-    const levelValue = button.dataset.level;
+        const levelSelect = document.getElementById('level');
+        const levelValue = button.dataset.level;
 
-    Array.from(levelSelect.options).forEach(option => {
-        option.selected = false;
-    });
+        Array.from(levelSelect.options).forEach(option => {
+            option.selected = false;
+        });
 
-    const selectedLevelOption = Array.from(levelSelect.options).find(option => option.value === levelValue);
-    if (selectedLevelOption) {
-        selectedLevelOption.selected = true;
-    }
+        const selectedLevelOption = Array.from(levelSelect.options).find(option => option.value === levelValue);
+        if (selectedLevelOption) {
+            selectedLevelOption.selected = true;
+        }
 
-    $(levelSelect).val(levelValue).trigger('change');
+        $(levelSelect).val(levelValue).trigger('change');
 
-    document.getElementById('formSourceButton').innerText = 'Simpan';
-    document.getElementById('formSourceModal').setAttribute('action', url);
+        document.getElementById('formSourceButton').innerText = 'Simpan';
+        document.getElementById('formSourceModal').setAttribute('action', url);
 
-    let csrfToken = document.createElement('input');
-    csrfToken.setAttribute('type', 'hidden');
-    csrfToken.setAttribute('value', '{{ csrf_token() }}');
-    formModal.appendChild(csrfToken);
+        let csrfToken = document.createElement('input');
+        csrfToken.setAttribute('type', 'hidden');
+        csrfToken.setAttribute('value', '{{ csrf_token() }}');
+        formModal.appendChild(csrfToken);
 
-    let methodInput = document.createElement('input');
-    methodInput.setAttribute('type', 'hidden');
-    methodInput.setAttribute('name', '_method');
-    methodInput.setAttribute('value', 'PATCH');
-    formModal.appendChild(methodInput);
+        let methodInput = document.createElement('input');
+        methodInput.setAttribute('type', 'hidden');
+        methodInput.setAttribute('name', '_method');
+        methodInput.setAttribute('value', 'PATCH');
+        formModal.appendChild(methodInput);
 
-    status.classList.toggle('hidden');
-};
+        status.classList.toggle('hidden');
+    };
 
     const sourceModalClose = (button) => {
         const modalTarget = button.dataset.modalTarget;
@@ -241,7 +273,7 @@ const editSourceModal = (button) => {
     }
 
     const jabatanDelete = async (id, jabatan) => {
-        let tanya = confirm(`Apakah anda yakin untuk menghapus jabatan?`);
+        let tanya = confirm(`Apakah anda yakin untuk menghapus jabatan ini?`);
         if (tanya) {
             try {
                 const response = await axios.post(`/jabatan/${id}`, {
@@ -261,4 +293,13 @@ const editSourceModal = (button) => {
             }
         }
     };
+</script>
+
+<script>
+    setTimeout(() => {
+        const alert = document.querySelector('[role="alert"]');
+        if (alert) {
+            alert.remove();
+        }
+    }, 3000);
 </script>

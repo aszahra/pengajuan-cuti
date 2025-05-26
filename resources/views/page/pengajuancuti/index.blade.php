@@ -70,21 +70,19 @@
                                             </td>
                                             <td class="px-6 py-4 bg-gray-100 text-center">
                                                 {{ \Carbon\Carbon::parse($d->tanggal_pengajuan)->translatedFormat('d F Y') }}
-                                                {{-- {{ $d->tanggal_pengajuan }} --}}
                                             </td>
 
                                             @foreach ($d->detail_pengajuan_cuti as $detail)
                                                 <td class="px-6 py-4 bg-gray-100 text-center">
                                                     {{ \Carbon\Carbon::parse($detail->tanggal_mulai)->translatedFormat('d F Y') }}
-                                                    {{-- {{ $detail->tanggal_mulai }} --}}
                                                 </td>
                                                 <td class="px-6 py-4 bg-gray-100 text-center">
                                                     {{ \Carbon\Carbon::parse($detail->tanggal_selesai)->translatedFormat('d F Y') }}
-                                                    {{-- {{ $detail->tanggal_selesai }} --}}
                                                 </td>
                                             @endforeach
 
                                             <td class="px-6 py-4 bg-gray-100 text-center">
+                                         
                                                 @if ($d->status == 'Disetujui')
                                                     <span
                                                         class="bg-green-100 text-green-800 px-3 py-1 rounded-full">{{ $d->status }}</span>
@@ -146,7 +144,7 @@
                         <label class="block mb-2 text-sm font-medium text-gray-900">Nama Pegawai :
                         </label>
                         <label>
-                            {{ $d->pegawai->nama }}
+                            {{-- {{ $d->pegawai->nama }} --}}
                         </label>
                         <p id="nama" class="text-gray-800 text-sm bg-gray-100 rounded-lg p-2.5"></p>
                     </div>
