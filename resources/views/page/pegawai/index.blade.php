@@ -222,6 +222,7 @@
                                                     data-tanggal_lahir="{{ $k->tanggal_lahir }}"
                                                     data-no_hp="{{ $k->no_hp }}" data-alamat="{{ $k->alamat }}"
                                                     data-status_pegawai="{{ $k->status_pegawai }}"
+                                                    data-email="{{ $k->user->email ?? '' }}"
                                                     onclick="editSourceModal(this)"
                                                     class="bg-amber-500 hover:bg-amber-600 px-3 py-1 rounded-md text-xs text-white">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16"
@@ -255,109 +256,147 @@
             </div>
         </div>
     </div>
-    <div class="fixed inset-0 flex items-center justify-center z-50 hidden" id="sourceModal">
-        <div class="fixed inset-0 bg-black opacity-50"></div>
-        <div class="fixed inset-0 flex items-center justify-center">
-            <div class="w-full md:w-1/2 relative bg-white rounded-lg shadow mx-5">
-                <div class="flex items-start justify-between p-4 border-b rounded-t">
-                    <h3 class="text-xl font-semibold text-gray-900" id="title_source">
-                        Update Sumber Database
-                    </h3>
-                    <button type="button" onclick="sourceModalClose(this)" data-modal-target="sourceModal"
-                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center"
-                        data-modal-hide="defaultModal">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
+    {{-- <div class="fixed inset-0 flex items-center justify-center z-50 hidden" id="sourceModal"> --}}
+    <<div class="fixed inset-0 z-50 overflow-y-auto hidden" id="sourceModal">
+        <div class="flex items-start justify-center min-h-screen pt-20 px-4">
+            <div class="fixed inset-0 bg-black opacity-50"></div>
+            <div class="relative w-full flex justify-center">
+                <div class="w-full md:w-1/2 relative bg-white rounded-lg shadow mx-5">
+                    <div class="flex items-start justify-between p-4 border-b rounded-t">
+                        <h3 class="text-xl font-semibold text-gray-900" id="title_source">
+                            Update Sumber Database
+                        </h3>
+                        <button type="button" onclick="sourceModalClose(this)" data-modal-target="sourceModal"
+                            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center"
+                            data-modal-hide="defaultModal">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                    <form method="POST" id="formSourceModal">
+                        @csrf
+                        <div class="flex flex-col  p-4 space-y-6">
+                            <div class="flex gap-5">
+                                <div class="mb-5 w-full">
+                                    <label for="text" class="block mb-2 text-sm font-medium text-gray-900">NIP
+                                    </label>
+                                    <input type="text" id="nip" name="nip"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="Masukan NIP (10 digit)" pattern="\d{10}" maxlength="10" required
+                                        oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10)">
+                                </div>
+                                <div class="mb-5 w-full">
+                                    <label for="text" class="block mb-2 text-sm font-medium text-gray-900">Nama
+                                        Pegawai</label>
+                                    <input type="text" id="nama" name="nama"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="Masukan jumlah cuti disini..." required>
+                                </div>
+                            </div>
+
+                            <div class="flex gap-5">
+                                <div class="mb-5 w-full">
+                                    <label for="email"
+                                        class="block mb-2 text-sm font-medium text-gray-900">Email</label>
+                                    <input type="email" id="email" name="email" readonly
+                                        class="bg-gray-100 cursor-not-allowed border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                        placeholder="Email tidak dapat diubah">
+                                </div>
+                                <div class="mb-5 w-full relative">
+                                    <label for="password"
+                                        class="block mb-2 text-sm font-medium text-gray-900">Password</label>
+                                    <input type="password" id="password" name="password"
+                                        class="bg-gray-100 cursor-not-allowed border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                        placeholder="Password tidak dapat diubah">
+                                    <button type="button" onclick="togglePassword()"
+                                        class="absolute right-3 top-9 text-gray-600 focus:outline-none">
+                                        <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M2.458 12C3.732 7.943 7.522 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.478 0-8.268-2.943-9.542-7z" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="flex gap-5">
+                                <div class="mb-5 w-full">
+                                    <label for="id_jabatan"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jabatan</label>
+                                    <select class="js-example-placeholder-single js-states form-control w-full"
+                                        name="id_jabatan" id="id_jabatan" placeholder="Pilih Jabatan">
+                                        <option value="" disabled selected required>Pilih...</option>
+                                        @foreach ($jabatan as $k)
+                                            <option value="{{ $k->id }}">{{ $k->level }} -
+                                                {{ $k->departemen->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-5 w-full">
+                                    <label for="text"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis
+                                        Kelamin</label>
+                                    <select class="js-example-placeholder-single js-states form-control w-full"
+                                        name="jenis_kelamin" id="jenis_kelamin" required>
+                                        <option value="" disabled selected>Pilih...</option>
+                                        <option value="Perempuan">Perempuan</option>
+                                        <option value="Laki-Laki">Laki-Laki</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="flex gap-5">
+                                <div class="mb-5 w-full">
+                                    <label for="text"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal
+                                        Lahir</label>
+                                    <input type="date" id="tanggal_lahir" name="tanggal_lahir"
+                                        value="{{ date('Y-m-d') }}"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        required />
+                                </div>
+                                <div class="mb-5 w-full">
+                                    <label for="text"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nomor
+                                        HP</label>
+                                    <input name="no_hp" id="no_hp" type="tel" minlength="12"
+                                        maxlength="15" pattern="\d{12,15}"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="Masukan nomor hp..." required>
+                                </div>
+                            </div>
+
+                            <div class="">
+                                <label for="text"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat</label>
+                                <input name="alamat" type="text" id="alamat"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="Masukan Alamat..." required>
+                            </div>
+                            <div class="">
+                                <label for="base-input"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status
+                                    Pegawai</label>
+                                <select class="js-example-placeholder-single js-states form-control w-full"
+                                    name="status_pegawai" id="status_pegawai" required>
+                                    <option value="" disabled selected>Pilih...</option>
+                                    <option value="Aktif">Aktif</option>
+                                    <option value="Cuti">Cuti</option>
+                                    <option value="Non-aktif">Non-aktif</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="flex items-center p-4 space-x-2 border-t border-gray-200 rounded-b">
+                            <button type="submit" id="formSourceButton"
+                                class="bg-green-400 m-2 w-40 h-10 rounded-xl hover:bg-green-500">Simpan</button>
+                            <button type="button" data-modal-target="sourceModal" onclick="sourceModalClose(this)"
+                                class="bg-red-500 m-2 w-40 h-10 rounded-xl text-white hover:shadow-lg hover:bg-red-600">Batal</button>
+                        </div>
+                    </form>
                 </div>
-                <form method="POST" id="formSourceModal">
-                    @csrf
-                    <div class="flex flex-col  p-4 space-y-6">
-                        <div class="">
-                            <label for="text" class="block mb-2 text-sm font-medium text-gray-900">NIP
-                            </label>
-                            <input type="text" id="nip" name="nip"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Masukan NIP (10 digit)" pattern="\d{10}" maxlength="10" required
-                                oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10)">
-                        </div>
-                        <div class="">
-                            <label for="text" class="block mb-2 text-sm font-medium text-gray-900">Nama
-                                Pegawai</label>
-                            <input type="text" id="nama" name="nama"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Masukan jumlah cuti disini..." required>
-                        </div>
-                        <div class="">
-                            <label for="id_jabatan"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jabatan</label>
-                            <select class="js-example-placeholder-single js-states form-control w-full"
-                                name="id_jabatan" id="id_jabatan" placeholder="Pilih Jabatan">
-                                <option value="" disabled selected required>Pilih...</option>
-                                @foreach ($jabatan as $k)
-                                    <option value="{{ $k->id }}">{{ $k->level }} -
-                                        {{ $k->departemen->nama }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="">
-                            <label for="text"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis
-                                Kelamin</label>
-                            <select class="js-example-placeholder-single js-states form-control w-full"
-                                name="jenis_kelamin" id="jenis_kelamin" required>
-                                <option value="" disabled selected>Pilih...</option>
-                                <option value="Perempuan">Perempuan</option>
-                                <option value="Laki-Laki">Laki-Laki</option>
-                            </select>
-                        </div>
-                        <div class="">
-                            <label for="text"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal
-                                Lahir</label>
-                            <input type="date" id="tanggal_lahir" name="tanggal_lahir"
-                                value="{{ date('Y-m-d') }}"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                required />
-                        </div>
-                        <div class="">
-                            <label for="text"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nomor
-                                HP</label>
-                            <input name="no_hp" id="no_hp" type="tel" minlength="12" maxlength="15"
-                                pattern="\d{12,15}"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Masukan nomor hp..." required>
-                        </div>
-                        <div class="">
-                            <label for="text"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat</label>
-                            <input name="alamat" type="text" id="alamat"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Masukan Alamat..." required>
-                        </div>
-                        <div class="">
-                            <label for="base-input"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status
-                                Pegawai</label>
-                            <select class="js-example-placeholder-single js-states form-control w-full"
-                                name="status_pegawai" id="status_pegawai" required>
-                                <option value="" disabled selected>Pilih...</option>
-                                <option value="Aktif">Aktif</option>
-                                <option value="Cuti">Cuti</option>
-                                <option value="Non-aktif">Non-aktif</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="flex items-center p-4 space-x-2 border-t border-gray-200 rounded-b">
-                        <button type="submit" id="formSourceButton"
-                            class="bg-green-400 m-2 w-40 h-10 rounded-xl hover:bg-green-500">Simpan</button>
-                        <button type="button" data-modal-target="sourceModal" onclick="sourceModalClose(this)"
-                            class="bg-red-500 m-2 w-40 h-10 rounded-xl text-white hover:shadow-lg hover:bg-red-600">Batal</button>
-                    </div>
-                </form>
             </div>
         </div>
-    </div>
 </x-app-layout>
 
 <script>
@@ -373,6 +412,12 @@
         const no_hp = button.dataset.no_hp;
         const alamat = button.dataset.alamat;
         const status_pegawai = button.dataset.status_pegawai;
+        const email = button.dataset.email;
+        document.getElementById('email').value = email;
+
+        document.getElementById('password').value = '';
+
+
 
         let url = "{{ route('pegawai.update', ':id') }}".replace(':id', id);
 
@@ -469,5 +514,28 @@
 
     function validateNIP(input) {
         input.value = input.value.replace(/[^0-9]/g, '').slice(0, 10);
+    }
+</script>
+
+<script>
+    function togglePassword() {
+        const password = document.getElementById("password");
+        const icon = document.getElementById("eyeIcon");
+
+        if (password.type === "password") {
+            password.type = "text";
+            icon.innerHTML = `
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a9.969 9.969 0 012.042-3.368m1.527-1.527A9.969 9.969 0 0112 5c4.478 0 8.268 2.943 9.542 7a9.969 9.969 0 01-1.565 2.635M15 12a3 3 0 11-6 0 3 3 0 016 0zM3 3l18 18" />
+        `;
+        } else {
+            password.type = "password";
+            icon.innerHTML = `
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M2.458 12C3.732 7.943 7.522 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.478 0-8.268-2.943-9.542-7z" />
+        `;
+        }
     }
 </script>

@@ -72,17 +72,17 @@
                                                 {{ \Carbon\Carbon::parse($d->tanggal_pengajuan)->translatedFormat('d F Y') }}
                                             </td>
 
-                                            @foreach ($d->detail_pengajuan_cuti as $detail)
-                                                <td class="px-6 py-4 bg-gray-100 text-center">
-                                                    {{ \Carbon\Carbon::parse($detail->tanggal_mulai)->translatedFormat('d F Y') }}
-                                                </td>
-                                                <td class="px-6 py-4 bg-gray-100 text-center">
-                                                    {{ \Carbon\Carbon::parse($detail->tanggal_selesai)->translatedFormat('d F Y') }}
-                                                </td>
-                                            @endforeach
+                                            {{-- @foreach ($d->detail_pengajuan_cuti as $detail) --}}
+                                            <td class="px-6 py-4 bg-gray-100 text-center">
+                                                {{ \Carbon\Carbon::parse($d->tanggal_mulai)->translatedFormat('d F Y') }}
+                                            </td>
+                                            <td class="px-6 py-4 bg-gray-100 text-center">
+                                                {{ \Carbon\Carbon::parse($d->tanggal_selesai)->translatedFormat('d F Y') }}
+                                            </td>
+                                            {{-- @endforeach --}}
 
                                             <td class="px-6 py-4 bg-gray-100 text-center">
-                                         
+
                                                 @if ($d->status == 'Disetujui')
                                                     <span
                                                         class="bg-green-100 text-green-800 px-3 py-1 rounded-full">{{ $d->status }}</span>
@@ -139,67 +139,74 @@
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
-                <div class="flex flex-col p-4 space-y-6">
-                    <div>
-                        <label class="block mb-2 text-sm font-medium text-gray-900">Nama Pegawai :
-                        </label>
-                        <label>
-                            {{-- {{ $d->pegawai->nama }} --}}
-                        </label>
-                        <p id="nama" class="text-gray-800 text-sm bg-gray-100 rounded-lg p-2.5"></p>
-                    </div>
-                    <div>
-                        <label class="block mb-2 text-sm font-medium text-gray-900">Jenis Cuti :</label>
-                        <p id="jenis_cuti" class="text-gray-800 text-sm bg-gray-100 rounded-lg p-2.5"></p>
-                    </div>
+                @foreach ($data as $d)
+                    <div class="flex flex-col p-4 space-y-6">
+                        <div>
+                            <label class="block mb-2 text-sm font-medium text-gray-900">Nama Pegawai :
+                            </label>
+                            {{-- <label
+                            class="w-full min-h-[42px] inline-block text-gray-800 text-sm bg-gray-100 rounded-lg p-2.5">
+                            {{ $d->pegawai->nama }}
+                        </label> --}}
+                            <p id="nama" class="text-gray-800 text-sm bg-gray-100 rounded-lg p-2.5"></p>
+                        </div>
+                        <div>
+                            <label class="block mb-2 text-sm font-medium text-gray-900">Jenis Cuti :</label>
+                            {{-- <label
+                            class="w-full min-h-[42px] inline-block text-gray-800 text-sm bg-gray-100 rounded-lg p-2.5">
+                            {{ $d->cuti->nama }}
+                        </label> --}}
+                            <p id="jenis_cuti" class="text-gray-800 text-sm bg-gray-100 rounded-lg p-2.5"></p>
+                            <label>
+                        </div>
 
-                    <div>
-                        <label class="block mb-2 text-sm font-medium text-gray-900">Tanggal Pengajuan :
-                        </label>
-                        <p id="tanggal_pengajuan" class="text-gray-800 text-sm bg-gray-100 rounded-lg p-2.5"></p>
+                        <div>
+                            <label class="block mb-2 text-sm font-medium text-gray-900">Tanggal Pengajuan :
+                            </label>
+                            <p id="tanggal_pengajuan" class="text-gray-800 text-sm bg-gray-100 rounded-lg p-2.5"></p>
+                        </div>
+                        <div>
+                            <label class="block mb-2 text-sm font-medium text-gray-900">Tanggal Mulai :
+                            </label>
+                            <p id="tanggal_mulai" class="text-gray-800 text-sm bg-gray-100 rounded-lg p-2.5"></p>
+                        </div>
+                        <div>
+                            <label class="block mb-2 text-sm font-medium text-gray-900">Tanggal Selesai :
+                            </label>
+                            <p id="tanggal_selesai" class="text-gray-800 text-sm bg-gray-100 rounded-lg p-2.5"></p>
+                        </div>
+                        <div>
+                            <label class="block mb-2 text-sm font-medium text-gray-900">Status :
+                            </label>
+                            <p id="status" class="text-gray-800 text-sm bg-gray-100 rounded-lg p-2.5"></p>
+                        </div>
+                        <div>
+                            <label class="block mb-2 text-sm font-medium text-gray-900">Keterangan :
+                            </label>
+                            <p id="keterangan" class="text-gray-800 text-sm bg-gray-100 rounded-lg p-2.5"></p>
+                        </div>
                     </div>
-                    <div>
-                        <label class="block mb-2 text-sm font-medium text-gray-900">Tanggal Mulai :
-                        </label>
-                        <p id="tanggal_mulai" class="text-gray-800 text-sm bg-gray-100 rounded-lg p-2.5"></p>
-                    </div>
-                    <div>
-                        <label class="block mb-2 text-sm font-medium text-gray-900">Tanggal Selesai :
-                        </label>
-                        <p id="tanggal_selesai" class="text-gray-800 text-sm bg-gray-100 rounded-lg p-2.5"></p>
-                    </div>
-                    <div>
-                        <label class="block mb-2 text-sm font-medium text-gray-900">Status :
-                        </label>
-                        <p id="status" class="text-gray-800 text-sm bg-gray-100 rounded-lg p-2.5"></p>
-                    </div>
-                    <div>
-                        <label class="block mb-2 text-sm font-medium text-gray-900">Keterangan :
-                        </label>
-                        <p id="keterangan" class="text-gray-800 text-sm bg-gray-100 rounded-lg p-2.5"></p>
-                    </div>
-                </div>
-                <div class="flex p-7">
-                    <form action="{{ route('update.status', $d->id) }}" method="POST" class="flex gap-2">
-                        @csrf
-                        @method('PUT')
-                        <input type="hidden" name="status" value="Disetujui" id="statusInput">
+                    <div class="flex p-7">
+                        <form action="{{ route('update.status', $d->id) }}" method="POST" class="flex gap-2">
+                            @csrf
+                            @method('PUT')
+                            <input type="hidden" name="status" value="Disetujui" id="statusInput">
 
-                        <button type="submit"
-                            class="bg-green-500 hover:bg-green-400 text-white font-semibold px-6 py-2 rounded"
-                            onclick="document.getElementById('statusInput').value='Disetujui'; return confirmSetuju();">
-                            Setujui
-                        </button>
+                            <button type="submit"
+                                class="bg-green-500 hover:bg-green-400 text-white font-semibold px-6 py-2 rounded"
+                                onclick="document.getElementById('statusInput').value='Disetujui'; return confirmSetuju();">
+                                Setujui
+                            </button>
 
-                        <button type="submit"
-                            class="bg-red-500 hover:bg-red-400 text-white font-semibold px-6 py-2 rounded"
-                            onclick="document.getElementById('statusInput').value='Ditolak'; return confirmTolak();">
-                            Tolak
-                        </button>
-                    </form>
-
-                </div>
+                            <button type="submit"
+                                class="bg-red-500 hover:bg-red-400 text-white font-semibold px-6 py-2 rounded"
+                                onclick="document.getElementById('statusInput').value='Ditolak'; return confirmTolak();">
+                                Tolak
+                            </button>
+                        </form>
+                    </div>
             </div>
+            @endforeach
         </div>
     </div>
 </x-app-layout>
@@ -223,6 +230,20 @@
 
     function sourceModalClose() {
         document.getElementById('sourceModal').classList.add('hidden');
+    }
+
+    function showDetail(id) {
+        fetch(`/pengajuancuti/${id}`)
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById("nama").innerText = data.pegawai.nama;
+                document.getElementById("jenis_cuti").innerText = data.cuti.nama;
+                document.getElementById("tanggal_pengajuan").innerText = data.tanggal_pengajuan;
+                document.getElementById("tanggal_mulai").innerText = data.tanggal_mulai;
+                document.getElementById("tanggal_selesai").innerText = data.tanggal_selesai;
+                document.getElementById("status").innerText = data.status;
+                document.getElementById("keterangan").innerText = data.keterangan;
+            });
     }
 </script>
 

@@ -11,7 +11,7 @@ class Pegawai extends Model
 
     protected $fillable = [
         'nip',
-        'id_user',
+        'user_id',
         'id_jabatan',
         'nama',
         'jenis_kelamin',
@@ -20,7 +20,7 @@ class Pegawai extends Model
         'alamat',
         'status_pegawai',
     ];
-    
+
     protected $table = 'pegawai';
 
     public function jabatan()
@@ -31,5 +31,10 @@ class Pegawai extends Model
     public function pengajuancuti()
     {
         return $this->hasMany(PengajuanCuti::class, 'id_pegawai');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }

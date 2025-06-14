@@ -21,7 +21,7 @@ return new class extends Migration
             $table->date('tanggal_mulai');
             $table->date('tanggal_selesai');
             $table->integer('jumlah');
-            $table->integer('sisa_cuti');
+            // $table->integer('sisa_cuti');
             $table->timestamps();
         });
     }

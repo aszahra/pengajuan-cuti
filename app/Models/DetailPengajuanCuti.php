@@ -20,8 +20,8 @@ class DetailPengajuanCuti extends Model
 
     protected $table = 'detail_pengajuan_cuti';
     
-    public function pengajuancuti()
-    {
-        return $this->belongsTo(PengajuanCuti::class, 'id_pengajuan_cuti');
-    }
+    // public function pengajuancuti()
+    // {
+    //     return $this->belongsTo(PengajuanCuti::class, 'id_pengajuan_cuti');
+    // }
 }

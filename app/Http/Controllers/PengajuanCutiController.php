@@ -16,8 +16,8 @@ class PengajuanCutiController extends Controller
      */
     public function index()
     {
-        $data = PengajuanCuti::with('detail_pengajuan_cuti')->paginate(5);
-        // $data = PengajuanCuti::paginate(5);
+        // $data = PengajuanCuti::with('detail_pengajuan_cuti')->paginate(5);
+        $data = PengajuanCuti::paginate(5);
         $pegawai = Pegawai::all();
         $cuti = Cuti::all();
         return view('page.pengajuancuti.index')->with([
@@ -55,7 +55,7 @@ class PengajuanCutiController extends Controller
             'tanggal_mulai' => $request->input('tanggal_mulai'),
             'tanggal_selesai' => $request->input('tanggal_selesai'),
             'jumlah' => $request->input('jumlah'),
-            'sisa_cuti' => $request->input('sisa_cuti')
+            // 'sisa_cuti' => $request->input('sisa_cuti')
         ]);
 
         // try {
@@ -95,6 +95,7 @@ class PengajuanCutiController extends Controller
         $data = PengajuanCuti::findOrFail($id);
         return response()->json($data);
     }
+
 
     /**
      * Show the form for editing the specified resource.
