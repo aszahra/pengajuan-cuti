@@ -96,11 +96,12 @@
                                             </td>
 
                                             <td class="px-6 py-4 bg-gray-100 text-center flex justify-center gap-2">
-                                                <button onclick="showModalDetail({{ $d->id }})"
-                                                    class="bg-amber-500 hover:bg-amber-600 px-3 py-1 rounded-md text-xs text-white">
-                                                    Lihat Detail
-                                                </button>
-
+                                                @can('role-A')
+                                                    <button onclick="showModalDetail({{ $d->id }})"
+                                                        class="bg-amber-500 hover:bg-amber-600 px-3 py-1 rounded-md text-xs text-white">
+                                                        Lihat Detail
+                                                    </button>
+                                                @endcan
                                                 @if ($d->status == 'Disetujui')
                                                     <a href="{{ route('pengajuancuti.cetak.satu', $d->id) }}"
                                                         target="_blank"
