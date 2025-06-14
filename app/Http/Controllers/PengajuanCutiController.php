@@ -51,6 +51,11 @@ class PengajuanCutiController extends Controller
             'status' => $request->input('status'),
             'keterangan' => $request->input('keterangan'),
             'tanggal_pengajuan' => Carbon::now(),
+            'id_cuti' => $request->input('id_cuti'),
+            'tanggal_mulai' => $request->input('tanggal_mulai'),
+            'tanggal_selesai' => $request->input('tanggal_selesai'),
+            'jumlah' => $request->input('jumlah'),
+            'sisa_cuti' => $request->input('sisa_cuti')
         ]);
 
         // try {
@@ -68,14 +73,14 @@ class PengajuanCutiController extends Controller
         // }
 
 
-        DetailPengajuanCuti::create([
-            'id_pengajuan_cuti' => $pengajuan->id,
-            'id_cuti' => $request->input('id_cuti'),
-            'tanggal_mulai' => $request->input('tanggal_mulai'),
-            'tanggal_selesai' => $request->input('tanggal_selesai'),
-            'jumlah' => $request->input('jumlah'),
-            'sisa_cuti' => $request->input('sisa_cuti')
-        ]);
+        // DetailPengajuanCuti::create([
+        //     'id_pengajuan_cuti' => $pengajuan->id,
+        //     'id_cuti' => $request->input('id_cuti'),
+        //     'tanggal_mulai' => $request->input('tanggal_mulai'),
+        //     'tanggal_selesai' => $request->input('tanggal_selesai'),
+        //     'jumlah' => $request->input('jumlah'),
+        //     'sisa_cuti' => $request->input('sisa_cuti')
+        // ]);
 
         return redirect()
             ->route('pengajuancuti.index')

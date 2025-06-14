@@ -22,10 +22,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Gate::define('role-A', function($user) {
-            return $user->role === 'A';
+            return $user->role === 'Administrator';
         });
         Gate::define('role-K', function($user) {
-            return $user->role === 'K';
+            return $user->role === 'Karyawan';
         });
         Carbon::setLocale('id');
     }

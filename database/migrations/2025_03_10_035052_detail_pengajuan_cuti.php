@@ -11,16 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('detail_pengajuan_cuti', function (Blueprint $table) {
-            $table->id();
-            $table->integer('id_pengajuan_cuti');
-            $table->string('id_cuti');
-            $table->date('tanggal_mulai');
-            $table->date('tanggal_selesai');
-            $table->integer('jumlah');
-            $table->integer('sisa_cuti');
-            $table->timestamps();
-        });
+        // Schema::create('detail_pengajuan_cuti', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->integer('id_pengajuan_cuti');
+        //     $table->string('id_cuti');
+        //     $table->date('tanggal_mulai');
+        //     $table->date('tanggal_selesai');
+        //     $table->integer('jumlah');
+        //     $table->integer('sisa_cuti');
+        //     $table->timestamps();
+        // });
     }
 
     /**

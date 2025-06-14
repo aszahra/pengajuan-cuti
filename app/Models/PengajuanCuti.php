@@ -14,8 +14,13 @@ class PengajuanCuti extends Model
         'tanggal_pengajuan',
         'status',
         'keterangan',
+        'id_cuti',
+        'tanggal_mulai',
+        'tanggal_selesai',
+        'jumlah',
+        'sisa_cuti',
     ];
-    
+
     protected $table = 'pengajuancuti';
 
     public function pegawai()
@@ -28,8 +33,8 @@ class PengajuanCuti extends Model
         return $this->hasMany(DetailPengajuanCuti::class, 'id_pengajuan_cuti');
     }
 
-    // public function cuti()
-    // {
-    //     return $this->belongsTo(Cuti::class, 'id_cuti', 'id');
-    // }
+    public function cuti()
+    {
+        return $this->belongsTo(Cuti::class, 'id_cuti', 'id');
+    }
 }

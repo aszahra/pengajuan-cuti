@@ -76,7 +76,7 @@
             </tr>
             <tr>
                 <td>Jenis Cuti</td>
-                <td>: {{ $data->jenisCuti->nama ?? '-' }}</td>
+                <td>: {{ $data->cuti->nama ?? '-' }}</td>
             </tr>
         </table>
     </div>
