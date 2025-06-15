@@ -32,7 +32,7 @@
                                     <label for="nama" class="block mb-2 text-sm font-medium text-gray-900">Nama
                                         Lengkap</label>
                                     <x-text-input id="nama" class="block mt-1 w-full" type="text" name="nama"
-                                        :value="old('nama')" required autocomplete="name"
+                                        :value="old('nama')" required autocomplete="name" 
                                         placeholder="Masukkan nama lengkap" />
                                     <x-input-error :messages="$errors->get('nama')" class="mt-2" />
                                 </div>
