@@ -134,7 +134,7 @@ class PengajuanCutiController extends Controller
 
     public function cetakSatu($id)
     {
-        $data = PengajuanCuti::with(['pegawai', 'detail_pengajuan_cuti'])->findOrFail($id);
+        $data = PengajuanCuti::with(['pegawai'])->findOrFail($id);
 
         return view('page.laporan.print', compact('data'));
     }

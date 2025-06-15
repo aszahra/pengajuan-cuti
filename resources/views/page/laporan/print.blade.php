@@ -1,41 +1,50 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Surat Pengajuan Cuti</title>
     <style>
-        body { 
-            font-family: 'Times New Roman', Times, serif; 
-            padding: 20px; 
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            padding: 20px;
             margin-top: 0;
         }
-        table { 
-            width: 100%; 
-            border-collapse: collapse; 
-            margin-top: 10px; 
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
         }
-        td, th { 
-            padding: 5px; 
+
+        td,
+        th {
+            padding: 5px;
             font-size: 12px;
         }
-        .kop { 
-            text-align: center; 
-            border-bottom: 2px solid black; 
-            padding-bottom: 10px; 
+
+        .kop {
+            text-align: center;
+            border-bottom: 2px solid black;
+            padding-bottom: 10px;
             margin-bottom: 20px;
         }
-        .tanda-tangan { 
-            margin-top: 40px; 
-            text-align: right; 
+
+        .tanda-tangan {
+            margin-top: 40px;
+            text-align: right;
         }
+
         p {
             margin: 5px 0;
             font-size: 12px;
         }
+
         .header-section {
             margin-bottom: 20px;
         }
     </style>
 </head>
+
 <body onload="window.print()">
 
     <div class="kop">
@@ -92,11 +101,11 @@
                 <th style="text-align: center;">Jumlah Hari</th>
             </tr>
         </thead>
-        <tbody>
+        {{-- <tbody>
             @php
                 $totalHari = 0;
             @endphp
-            @foreach($data->detail_pengajuan_cuti as $i => $detail)
+            @foreach ($data->detail_pengajuan_cuti as $i => $detail)
                 @php
                     $tanggalMulai = \Carbon\Carbon::parse($detail->tanggal_mulai);
                     $tanggalSelesai = \Carbon\Carbon::parse($detail->tanggal_selesai);
@@ -110,12 +119,30 @@
                     <td style="text-align: center;">{{ $jumlahHari }}</td>
                 </tr>
             @endforeach
+        </tbody> --}}
+
+        <tbody>
+            @php
+                $tanggalMulai = \Carbon\Carbon::parse($data->tanggal_mulai);
+                $tanggalSelesai = \Carbon\Carbon::parse($data->tanggal_selesai);
+                $jumlahHari = $tanggalMulai->diffInDays($tanggalSelesai) + 1;
+            @endphp
+
+        <tbody>
+            <tr>
+                <td style="text-align: center;">1</td>
+                <td style="text-align: center;">{{ $tanggalMulai->translatedFormat('d F Y') }}</td>
+                <td style="text-align: center;">{{ $tanggalSelesai->translatedFormat('d F Y') }}</td>
+                <td style="text-align: center;">{{ $jumlahHari }}</td>
+            </tr>
         </tbody>
     </table>
 
-    <p><strong>Total Jumlah Hari Cuti: {{ $totalHari }} Hari</strong></p>
+    <p><strong>Total Jumlah Hari Cuti: {{ $jumlahHari }} Hari</strong></p>
 
-    <p>Demikian surat pengajuan ini saya sampaikan. Besar harapan saya agar permohonan ini dapat dikabulkan. Atas perhatian dan kebijaksanaan Bapak/Ibu, saya ucapkan terima kasih.</p>
+
+    <p>Demikian surat pengajuan ini saya sampaikan. Besar harapan saya agar permohonan ini dapat dikabulkan. Atas
+        perhatian dan kebijaksanaan Bapak/Ibu, saya ucapkan terima kasih.</p>
 
     <!-- TANDA TANGAN -->
     <div class="tanda-tangan">
@@ -125,4 +152,5 @@
     </div>
 
 </body>
+
 </html>
