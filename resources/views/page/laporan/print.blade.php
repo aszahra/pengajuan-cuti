@@ -95,7 +95,7 @@
     <table border="1">
         <thead>
             <tr>
-                <th style="text-align: center;">No</th>
+                {{-- <th style="text-align: center;">No</th> --}}
                 <th style="text-align: center;">Tanggal Mulai</th>
                 <th style="text-align: center;">Tanggal Selesai</th>
                 <th style="text-align: center;">Jumlah Hari</th>
@@ -130,7 +130,7 @@
 
         <tbody>
             <tr>
-                <td style="text-align: center;">1</td>
+                {{-- <td style="text-align: center;">1</td> --}}
                 <td style="text-align: center;">{{ $tanggalMulai->translatedFormat('d F Y') }}</td>
                 <td style="text-align: center;">{{ $tanggalSelesai->translatedFormat('d F Y') }}</td>
                 <td style="text-align: center;">{{ $jumlahHari }}</td>
